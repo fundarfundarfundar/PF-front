@@ -1,1 +1,1 @@
-# Fund.ar - rama main vacía para demos
+# Fund.ar - rama main vacía solo para demos
