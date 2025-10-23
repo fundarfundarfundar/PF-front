@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Merriweather } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const proximaNova = Poppins({
+  variable: "--font-proxima",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const kazimir = Merriweather({
+  variable: "--font-kazimir",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Fund.ar",
-  description: "Plataforma de donaciones sociales",
+  description: "Plataforma de donaciones para proyectos con fines sociales",
 };
 
 export default function RootLayout({
@@ -27,10 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+        className={`${proximaNova.variable} ${kazimir.variable} antialiased`}
       >
         <Navbar />
-        <main className="grow">{children}</main>
+        {children}
         <Footer />
       </body>
     </html>

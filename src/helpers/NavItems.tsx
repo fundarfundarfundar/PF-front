@@ -8,27 +8,22 @@ export enum PATHROUTES {
 
 export const NavItems = [
   {
-    name: "Inicio",
+    name: "HOME",
     route: PATHROUTES.HOME,
     prefetch: true,
   },
   {
-    name: "Products",
+    name: "PROJECTS",
     route: PATHROUTES.PROJETS,
     prefetch: true,
   },
   {
-    name: "Login",
+    name: "SIGN IN",
     route: PATHROUTES.LOGIN,
     prefetch: true,
   },
   {
-    name: "Register",
-    route: PATHROUTES.REGISTER,
-    prefetch: true,
-  },
-  {
-    name: "Dashboard",
+    name: "DASHBOARD",
     route: PATHROUTES.DASHBOARD,
     prefetch: true,
   },

@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Register() {
-  return <div>Esto es el Register</div>;
+  return <div className="h-[80vh]">Esto es el Register</div>;
 }
