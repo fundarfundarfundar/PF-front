@@ -1,11 +1,13 @@
 "use client";
 
+import { PATHROUTES } from "@/helpers/NavItems";
 import {
   ILoginFormValues,
   loginInitialValues,
   loginValidationSchema,
 } from "@/validators/loginSchema";
 import { useFormik } from "formik";
+import Link from "next/link";
 
 export default function LoginForm() {
   const formik = useFormik<ILoginFormValues>({
@@ -16,7 +18,7 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col gap-1">
-      <label htmlFor="email">Correo Electrónico</label>
+      <label htmlFor="email">Email:</label>
       <input
         id="email"
         type="email"
@@ -32,7 +34,7 @@ export default function LoginForm() {
           {formik.errors.email}
         </p>
       ) : null}
-      <label htmlFor="password">Contraseña</label>
+      <label htmlFor="password">Password:</label>
       <input
         id="password"
         type="password"
@@ -46,9 +48,39 @@ export default function LoginForm() {
           {formik.errors.password}
         </p>
       ) : null}
-      <button type="submit" disabled={formik.isSubmitting} className="">
-        {formik.isSubmitting ? "Iniciando sesión" : "Iniciar sesión"}
+      <button
+        type="submit"
+        disabled={formik.isSubmitting}
+        className="w-full border-2 border-blue-900 text-blue-900 py-2 rounded-md font-semibold hover:bg-blue-50 transition"
+      >
+        {formik.isSubmitting ? "Signing in..." : "Sign in"}
       </button>
+
+      <div className="flex items-center my-4">
+        <hr className="grow border-gray-300" />
+        <span className="px-2 text-gray-500 text-sm">or sign in below</span>
+        <hr className="grow border-gray-300" />
+      </div>
+
+      <button
+        type="button"
+        className="w-full border-2 border-blue-900 text-blue-900 py-2 rounded-md font-semibold hover:bg-blue-50 transition"
+      >
+        SIGN IN WITH GMAIL
+      </button>
+
+      <div className="text-center mt-6 text-sm">
+        <Link href="#" className="text-blue-900 hover:underline">
+          Forgot password?
+        </Link>{" "}
+        |{" "}
+        <Link
+          href={PATHROUTES.REGISTER}
+          className="text-blue-900 hover:underline"
+        >
+          Create an account
+        </Link>
+      </div>
     </form>
   );
 }

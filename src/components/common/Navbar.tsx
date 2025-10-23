@@ -5,7 +5,7 @@ import Logo from "./Logo";
 
 export default function Navbar() {
   return (
-    <nav className="flex justify-between items-center px-10 h-[10vh] bg-blue-600 text-white shadow-md">
+    <nav className="flex justify-between items-center px-10 h-[10vh] bg-blue-dark text-white-smoke shadow-md">
       <Logo />
       <div className="space-x-5">
         {NavItems.map((navigationItem, index) => {
