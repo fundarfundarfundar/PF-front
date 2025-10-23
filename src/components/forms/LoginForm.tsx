@@ -17,43 +17,51 @@ export default function LoginForm() {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="flex flex-col gap-1">
-      <label htmlFor="email">Email:</label>
+    <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+      <label htmlFor="email" className="form-label">
+        EMAIL
+      </label>
       <input
         id="email"
         type="email"
         name="email"
         autoComplete="email"
+        placeholder="example@mail.com"
         value={formik.values.email}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        className=""
+        className="form-input"
       />
       {formik.errors.email && formik.touched.email ? (
         <p id="email-errors" className="text-red-500">
           {formik.errors.email}
         </p>
       ) : null}
-      <label htmlFor="password">Password:</label>
+
+      <label htmlFor="password" className="form-label">
+        PASSWORD
+      </label>
       <input
         id="password"
         type="password"
         name="password"
+        placeholder="********"
         value={formik.values.password}
         onChange={formik.handleChange}
-        className=""
+        className="form-input"
       />
       {formik.errors.password ? (
         <p id="password-errors" className="text-red-500">
           {formik.errors.password}
         </p>
       ) : null}
+
       <button
         type="submit"
         disabled={formik.isSubmitting}
-        className="w-full border-2 border-blue-900 text-blue-900 py-2 rounded-md font-semibold hover:bg-blue-50 transition"
+        className="btn-form-primary mt-4"
       >
-        {formik.isSubmitting ? "Signing in..." : "Sign in"}
+        {formik.isSubmitting ? "SIGNIN IN..." : "SIGN IN"}
       </button>
 
       <div className="flex items-center my-4">
@@ -62,10 +70,7 @@ export default function LoginForm() {
         <hr className="grow border-gray-300" />
       </div>
 
-      <button
-        type="button"
-        className="w-full border-2 border-blue-900 text-blue-900 py-2 rounded-md font-semibold hover:bg-blue-50 transition"
-      >
+      <button type="button" className="btn-form-secondary">
         SIGN IN WITH GMAIL
       </button>
 

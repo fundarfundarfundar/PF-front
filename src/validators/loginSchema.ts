@@ -12,9 +12,9 @@ export const loginInitialValues: ILoginFormValues = {
 
 export const loginValidationSchema = Yup.object({
   email: Yup.string()
-    .email("Correo electrónico inválido")
-    .required("El correo electrónico es obligatorio"),
+    .email("Please, enter a valid email address")
+    .required("Email is required"),
   password: Yup.string()
-    .min(6, "La contraseña debe tener al menos 6 caracteres")
-    .required("La constraseña es obligatoria"),
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
 });

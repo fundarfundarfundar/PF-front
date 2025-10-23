@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className="space-x-5">
         {NavItems.map((navigationItem, index) => {
           return (
-            <Link key={index} href={navigationItem.route}>
+            <Link key={index} href={navigationItem.route} className="nav-items">
               {navigationItem.name}
             </Link>
           );

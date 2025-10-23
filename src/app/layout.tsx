@@ -27,12 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${proximaNova.variable} ${kazimir.variable} antialiased`}
-      >
-        <Navbar />
-        {children}
-        <Footer />
+      <body>
+        <div
+          className={`${proximaNova.variable} ${kazimir.variable} antialiased`}
+        >
+          <Navbar />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
