@@ -1,13 +1,10 @@
 import React from "react";
+import { P } from "./Typography";
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-dark text-white-smoke h-[10vh]">
-      <div className="max-w-5xl mx-auto text-center text-sm py-5">
-        <p>
-          © {new Date().getFullYear()} Fund.ar — Todos los derechos reservados.
-        </p>
-      </div>
+    <footer className="bg-white-smoke text-black-strong border-t h-[8vh] flex items-center justify-center shadow-2xl lg:h-[10vh]">
+      <P>© {new Date().getFullYear()} Fund.ar — All rights reserved.</P>
     </footer>
   );
 }

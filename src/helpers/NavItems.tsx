@@ -18,11 +18,6 @@ export const NavItems = [
     prefetch: true,
   },
   {
-    name: "SIGN IN",
-    route: PATHROUTES.LOGIN,
-    prefetch: true,
-  },
-  {
     name: "DASHBOARD",
     route: PATHROUTES.DASHBOARD,
     prefetch: true,
