@@ -17,7 +17,8 @@ const kazimir = Merriweather({
 
 export const metadata: Metadata = {
   title: "Fund.ar",
-  description: "Plataforma de donaciones para proyectos con fines sociales",
+  description:
+    "Donation platform for projects with social purposes in Argentina",
 };
 
 export default function RootLayout({
@@ -26,15 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${proximaNova.variable} ${kazimir.variable} antialiased`}
+    >
       <body>
-        <div
-          className={`${proximaNova.variable} ${kazimir.variable} antialiased`}
-        >
-          <Navbar />
-          {children}
-          <Footer />
-        </div>
+        <Navbar />
+        {children}
+        <Footer />
       </body>
     </html>
   );

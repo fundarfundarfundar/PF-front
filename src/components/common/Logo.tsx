@@ -8,6 +8,7 @@ export default function Logo() {
         alt="Imagen de logo"
         width={220}
         height={220}
+        className="hidden lg:block"
       />
     </>
   );

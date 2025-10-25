@@ -68,9 +68,10 @@ export default function RegisterForm() {
         placeholder="********"
         value={formik.values.password}
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         className="form-input"
       />
-      {formik.errors.password ? (
+      {formik.errors.password && formik.touched.password ? (
         <p id="password-errors" className="text-red-500">
           {formik.errors.password}
         </p>
@@ -103,7 +104,7 @@ export default function RegisterForm() {
 
       <Link
         href={PATHROUTES.LOGIN}
-        className="text-blue-900 hover:underline text-center pt-2"
+        className="text-blue-900 hover:underline text-center pt-2 text-sm"
       >
         Already have an account? Sign in
       </Link>
