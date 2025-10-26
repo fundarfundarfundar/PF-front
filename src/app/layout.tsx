@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Merriweather } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
@@ -32,6 +33,7 @@ export default function RootLayout({
       className={`${proximaNova.variable} ${kazimir.variable} antialiased`}
     >
       <body>
+        <Toaster position="bottom-right" richColors />
         <Navbar />
         {children}
         <Footer />

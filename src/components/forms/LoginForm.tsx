@@ -1,19 +1,29 @@
 "use client";
 
 import { PATHROUTES } from "@/helpers/NavItems";
+// import { loginUser } from "@/services/auth.services";
 import {
   ILoginFormValues,
   loginInitialValues,
   loginValidationSchema,
 } from "@/validators/loginSchema";
 import { useFormik } from "formik";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginForm() {
+  const router = useRouter();
+
   const formik = useFormik<ILoginFormValues>({
     initialValues: loginInitialValues,
     validationSchema: loginValidationSchema,
-    onSubmit: (values) => console.log("Formulario enviado", values),
+    onSubmit: async (values, { resetForm }) => {
+      // const response = await loginUser(values);
+      toast.success("Login successful");
+      router.push(PATHROUTES.PROJETS);
+      resetForm();
+    },
   });
 
   return (
@@ -75,13 +85,13 @@ export default function LoginForm() {
       </button>
 
       <div className="text-center mt-6 text-sm">
-        <Link href="#" className="text-blue-900 hover:underline">
+        <Link href="#" className="text-blue-strong hover:underline">
           Forgot password?
         </Link>{" "}
         |{" "}
         <Link
           href={PATHROUTES.REGISTER}
-          className="text-blue-900 hover:underline"
+          className="text-blue-strong hover:underline"
         >
           Create an account
         </Link>

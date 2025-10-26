@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import {
   IRegisterFormValues,
   registerInitialValues,
@@ -9,12 +7,27 @@ import {
 } from "@/validators/registerSchema";
 import { useFormik } from "formik";
 import { PATHROUTES } from "@/helpers/NavItems";
+import { toast } from "sonner";
+import { registerUser } from "@/services/auth.services";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function RegisterForm() {
+  const router = useRouter();
+
   const formik = useFormik<IRegisterFormValues>({
     initialValues: registerInitialValues,
     validationSchema: registerValidationSchema,
-    onSubmit: (values) => console.log("Usuario registrado", values),
+    onSubmit: async (values, { resetForm }) => {
+      const response = await registerUser(values);
+      if (response.success) {
+        toast.success("User registered successfully");
+      } else {
+        toast.error("Registration failed");
+      }
+      router.push(PATHROUTES.LOGIN);
+      resetForm();
+    },
   });
 
   return (
@@ -104,7 +117,7 @@ export default function RegisterForm() {
 
       <Link
         href={PATHROUTES.LOGIN}
-        className="text-blue-900 hover:underline text-center pt-2 text-sm"
+        className="text-blue-strong hover:underline text-center pt-2 text-sm"
       >
         Already have an account? Sign in
       </Link>
