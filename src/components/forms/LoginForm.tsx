@@ -1,25 +1,32 @@
 "use client";
 
-import { PATHROUTES } from "@/helpers/NavItems";
-// import { loginUser } from "@/services/auth.services";
 import {
   ILoginFormValues,
   loginInitialValues,
   loginValidationSchema,
 } from "@/validators/loginSchema";
+import { PATHROUTES } from "@/helpers/NavItems";
+import { loginUser } from "@/services/auth.services";
 import { useFormik } from "formik";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 
 export default function LoginForm() {
+  const { setDataUser } = useAuth();
   const router = useRouter();
 
   const formik = useFormik<ILoginFormValues>({
     initialValues: loginInitialValues,
     validationSchema: loginValidationSchema,
+
     onSubmit: async (values, { resetForm }) => {
-      // const response = await loginUser(values);
+      const response = await loginUser(values);
+      setDataUser({
+        user: response.user,
+        token: response.token,
+      });
       toast.success("Login successful");
       router.push(PATHROUTES.PROJETS);
       resetForm();
