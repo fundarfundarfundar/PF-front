@@ -23,9 +23,10 @@ export default function LoginForm() {
 
     onSubmit: async (values, { resetForm }) => {
       const response = await loginUser(values);
+      console.log("Login response:", response);
       setDataUser({
-        user: response.user,
-        token: response.token,
+        user: response.result.user,
+        token: response.result.access_token,
       });
       toast.success("Login successful");
       router.push(PATHROUTES.PROJETS);
