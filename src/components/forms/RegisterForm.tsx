@@ -120,7 +120,7 @@ export default function RegisterForm() {
             id="address"
             type="text"
             name="address"
-            placeholder="Las Begonias - 145"
+            placeholder="You address"
             value={formik.values.address}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -139,6 +139,7 @@ export default function RegisterForm() {
             id="country"
             type="text"
             name="country"
+            placeholder="You country"
             value={formik.values.country}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -157,6 +158,7 @@ export default function RegisterForm() {
             id="city"
             type="text"
             name="city"
+            placeholder="Your city"
             value={formik.values.city}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
