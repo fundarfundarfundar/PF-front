@@ -31,9 +31,6 @@ export default function UserCard({ usuario }: { usuario: Usuario }) {
         <p>
           <span className="font-medium">Dirección:</span> {usuario.direccion}
         </p>
-        <p>
-          <span className="font-medium">Rol:</span> {usuario.rol}
-        </p>
       </div>
     </section>
   );

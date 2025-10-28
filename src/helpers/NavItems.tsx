@@ -6,19 +6,32 @@ export enum PATHROUTES {
   DASHBOARD = "/dashboard",
 }
 
-export const NavItems = [
+export const publicNavItems = [
   {
     name: "HOME",
     route: PATHROUTES.HOME,
     prefetch: true,
   },
   {
-    name: "PROJECTS",
+    name: "OUR PROJECTS",
+    route: PATHROUTES.PROJETS,
+    prefetch: true,
+  },
+];
+
+export const privatedNavItems = [
+  {
+    name: "HOME",
+    route: PATHROUTES.HOME,
+    prefetch: true,
+  },
+  {
+    name: "OUR PROJECTS",
     route: PATHROUTES.PROJETS,
     prefetch: true,
   },
   {
-    name: "DASHBOARD",
+    name: "MY HELP",
     route: PATHROUTES.DASHBOARD,
     prefetch: true,
   },

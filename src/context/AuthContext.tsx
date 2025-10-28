@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (typeof window !== "undefined" && window.localStorage) {
       localStorage.removeItem("userSession");
     }
-    router.push(PATHROUTES.LOGIN);
+    router.push(PATHROUTES.HOME);
   };
   return (
     <AuthContext.Provider value={{ dataUser, setDataUser, logout }}>

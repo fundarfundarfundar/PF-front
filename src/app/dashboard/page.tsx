@@ -8,12 +8,12 @@ export default function DashboardPage() {
   const { usuario, donaciones } = mockUserDashboard;
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6">
+    <section className="min-h-screen bg-gray-medium p-6">
       <div className="max-w-5xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold text-gray-800">Mi Panel</h1>
+        <h1 className="text-3xl font-bold text-gray-800">My Panel</h1>
         <UserCard usuario={usuario} />
         <DonationsList donaciones={donaciones} />
       </div>
-    </main>
+    </section>
   );
 }
