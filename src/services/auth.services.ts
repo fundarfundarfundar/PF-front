@@ -3,27 +3,6 @@ import { IRegisterFormValues } from "@/validators/registerSchema";
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
-// export const loginUser = async (userData: ILoginFormValues) => {
-//   try {
-//     const response = await fetch(`${apiURL}/auth/signin`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(userData),
-//     });
-
-//     if (response.ok) {
-//       return response.json();
-//     } else {
-//       throw new Error("Login Fallido");
-//     }
-//   } catch (error) {
-//     console.error("API error", error);
-//     return {
-//       success: false,
-//       message: "Unexpected error. Please try again later.",
-//     };
-//   }
-// };
 export const loginUser = async (userData: ILoginFormValues) => {
   try {
     const response = await fetch(`${apiURL}/auth/signin`, {

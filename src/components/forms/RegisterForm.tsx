@@ -34,85 +34,85 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
-      <div className="flex gap-5">
-        <div className="flex flex-col gap-2">
-          <label htmlFor="name" className="form-label">
-            NAME
-          </label>
-          <input
-            id="name"
-            type="name"
-            name="name"
-            placeholder="First and Last Name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="form-input"
-          />
-          {formik.errors.name && formik.touched.name ? (
-            <p id="name-errors" className="text-red-500">
-              {formik.errors.name}
-            </p>
-          ) : null}
+      {/* <div className="flex gap-5"> */}
+      <div className="flex flex-col gap-2">
+        <label htmlFor="name" className="form-label">
+          NAME
+        </label>
+        <input
+          id="name"
+          type="name"
+          name="name"
+          placeholder="First and Last Name"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          className="form-input"
+        />
+        {formik.errors.name && formik.touched.name ? (
+          <p id="name-errors" className="text-red-500">
+            {formik.errors.name}
+          </p>
+        ) : null}
 
-          <label htmlFor="email" className="form-label">
-            EMAIL
-          </label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            autoComplete="email"
-            placeholder="example@mail.com"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="form-input"
-          />
-          {formik.errors.email && formik.touched.email ? (
-            <p id="email-errors" className="text-red-500">
-              {formik.errors.email}
-            </p>
-          ) : null}
+        <label htmlFor="email" className="form-label">
+          EMAIL
+        </label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          autoComplete="email"
+          placeholder="example@mail.com"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          className="form-input"
+        />
+        {formik.errors.email && formik.touched.email ? (
+          <p id="email-errors" className="text-red-500">
+            {formik.errors.email}
+          </p>
+        ) : null}
 
-          <label htmlFor="password" className="form-label">
-            PASSWORD
-          </label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            placeholder="********"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="form-input"
-          />
-          {formik.errors.password && formik.touched.password ? (
-            <p id="password-errors" className="text-red-500">
-              {formik.errors.password}
-            </p>
-          ) : null}
+        <label htmlFor="password" className="form-label">
+          PASSWORD
+        </label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          placeholder="********"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          className="form-input"
+        />
+        {formik.errors.password && formik.touched.password ? (
+          <p id="password-errors" className="text-red-500">
+            {formik.errors.password}
+          </p>
+        ) : null}
 
-          <label htmlFor="confirmPassword" className="form-label">
-            CONFIRM YOUR PASSWORD
-          </label>
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            placeholder="********"
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="form-input"
-          />
-          {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
-            <p className="text-red-500">{formik.errors.confirmPassword}</p>
-          ) : null}
-        </div>
+        <label htmlFor="confirmPassword" className="form-label">
+          CONFIRM YOUR PASSWORD
+        </label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          placeholder="********"
+          value={formik.values.confirmPassword}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          className="form-input"
+        />
+        {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
+          <p className="text-red-500">{formik.errors.confirmPassword}</p>
+        ) : null}
+      </div>
 
-        <div className="flex flex-col gap-2">
+      {/* <div className="flex flex-col gap-2">
           <label htmlFor="address" className="form-label">
             ADDRESS
           </label>
@@ -206,9 +206,9 @@ export default function RegisterForm() {
               {formik.errors.phone}
             </p>
           ) : null}
-        </div>
-      </div>
-      <div>
+        </div> */}
+      {/* </div> */}
+      <div className="flex flex-col gap-1">
         <button
           type="submit"
           disabled={formik.isSubmitting}
