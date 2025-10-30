@@ -2,7 +2,8 @@ export enum PATHROUTES {
   HOME = "/",
   LOGIN = "/login",
   REGISTER = "/register",
-  DASHBOARD = "/dashboard",
+  USER_DASHBOARD = "/dashboard/profile",
+  ADM_DASHBOARD = "/dashboard/adm",
   EDUCATION = "/projects/education",
   NUTRITION = "/projects/nutrition",
   INFRAESTRUCTURE = "/projects/infraestructure",
@@ -37,7 +38,12 @@ export const privatedNavItems = [
   },
   {
     name: "MY HELP",
-    route: PATHROUTES.DASHBOARD,
+    route: PATHROUTES.USER_DASHBOARD,
+    prefetch: true,
+  },
+  {
+    name: "DASHBOARD",
+    route: PATHROUTES.ADM_DASHBOARD,
     prefetch: true,
   },
 ];

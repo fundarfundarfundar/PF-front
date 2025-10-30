@@ -1,7 +1,8 @@
 import { IProject } from "@/interfaces/IProject";
 import { P, TitleProject } from "../common/Typography";
+import { getCategoryNameById } from "@/helpers/categories";
 import Image from "next/image";
-// import Link from "next/link";
+import Link from "next/link";
 
 interface CardProps {
   project: IProject;
@@ -24,7 +25,7 @@ export default function ProjectCard({ project }: CardProps) {
     >
       <div className="lg:w-1/2">
         <Image
-          src={project.image}
+          src={project.images[0]}
           alt={`Imagen de ${project.title}`}
           width={1400}
           height={1400}
@@ -38,15 +39,14 @@ export default function ProjectCard({ project }: CardProps) {
           <br />
           {lastWord}
         </TitleProject>
-        <P className="text-black-medium lg:w-130">{project.description}</P>
-
-        {/* <Link
-            href={`/products/${getCategoryNameById(product.categoryId)}/${
-              project.id
-            }`}
-          >
-          </Link> */}
-        <button className="btn-primary mt-7">SEE MORE</button>
+        <P className="text-black-medium lg:w-130">{project.resume}</P>
+        <Link
+          href={`/projects/${getCategoryNameById(project.categoryId)}/${
+            project.id
+          }`}
+        >
+          <button className="btn-primary mt-7">SEE MORE</button>
+        </Link>
       </div>
     </section>
   );
