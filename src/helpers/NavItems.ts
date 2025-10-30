@@ -1,9 +1,14 @@
 export enum PATHROUTES {
   HOME = "/",
-  PROJETS = "/projects",
   LOGIN = "/login",
   REGISTER = "/register",
   DASHBOARD = "/dashboard",
+  EDUCATION = "/projects/education",
+  NUTRITION = "/projects/nutrition",
+  INFRAESTRUCTURE = "/projects/infraestructure",
+  ENVIROMENT = "/projects/enviroment",
+  HEALTH = "/projects/health",
+  PROJECTS = "/projects",
 }
 
 export const publicNavItems = [
@@ -14,7 +19,7 @@ export const publicNavItems = [
   },
   {
     name: "OUR PROJECTS",
-    route: PATHROUTES.PROJETS,
+    route: PATHROUTES.PROJECTS,
     prefetch: true,
   },
 ];
@@ -27,7 +32,7 @@ export const privatedNavItems = [
   },
   {
     name: "OUR PROJECTS",
-    route: PATHROUTES.PROJETS,
+    route: PATHROUTES.PROJECTS,
     prefetch: true,
   },
   {
