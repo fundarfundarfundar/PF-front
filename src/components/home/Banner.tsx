@@ -15,7 +15,7 @@ export default function Banner() {
           life of vulnerable communities in Latam.
         </P>
         <Link
-          href={PATHROUTES.PROJETS}
+          href={PATHROUTES.PROJECTS}
           className="text-[14px] lg:text-[16px] border-b-2 border-yellow-strong w-fit hover:text-yellow-strong transition"
         >
           See projects →
