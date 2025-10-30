@@ -1,6 +1,6 @@
 "use client";
 
-import { mockUserDashboard } from "../../helpers/MockDashboard";
+import { mockUserDashboard } from "../../../helpers/MockDashboard";
 import UserCard from "./UserCard";
 import DonationsList from "./DonationsList";
 

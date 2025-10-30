@@ -45,6 +45,16 @@ export const TitleForm = ({ children, className }: TypographyProps) => {
   );
 };
 
+export const H2 = ({ children, className }: TypographyProps) => {
+  return (
+    <p
+      className={`text-[30px] font-bold font-kazimir tracking-wide ${className}`}
+    >
+      {children}
+    </p>
+  );
+};
+
 export const P = ({ children, className }: TypographyProps) => {
   return (
     <p className={`text-[14px] lg:text-[16px] ${className}`}>{children}</p>

@@ -33,7 +33,7 @@ export default function LoginForm() {
         token: response.token,
       });
       toast.success("Login successful");
-      router.push(PATHROUTES.PROJETS);
+      router.push(PATHROUTES.PROJECTS);
       resetForm();
     },
   });
