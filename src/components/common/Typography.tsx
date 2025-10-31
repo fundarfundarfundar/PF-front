@@ -48,15 +48,25 @@ export const TitleForm = ({ children, className }: TypographyProps) => {
 export const H2 = ({ children, className }: TypographyProps) => {
   return (
     <p
-      className={`text-[30px] font-bold font-kazimir tracking-wide ${className}`}
+      className={`text-[30px] font-bold font-kazimir tracking-wide leading-relaxed ${className}`}
     >
       {children}
     </p>
   );
 };
 
-export const P = ({ children, className }: TypographyProps) => {
+export const P1 = ({ children, className }: TypographyProps) => {
   return (
-    <p className={`text-[14px] lg:text-[16px] ${className}`}>{children}</p>
+    <p className={`text-[14px] lg:text-[18px] leading-relaxed ${className}`}>
+      {children}
+    </p>
+  );
+};
+
+export const P2 = ({ children, className }: TypographyProps) => {
+  return (
+    <p className={`text-[14px] lg:text-[16px] leading-relaxed ${className}`}>
+      {children}
+    </p>
   );
 };

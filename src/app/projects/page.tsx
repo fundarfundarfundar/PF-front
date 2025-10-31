@@ -1,5 +1,5 @@
-import ProjectCard from "@/components/projects/ProjectCard";
 import { MockProjects } from "@/helpers/MockProjects";
+import ProjectCard from "@/components/projects/ProjectCard";
 
 export default function Projects() {
   return (

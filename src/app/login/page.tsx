@@ -1,4 +1,4 @@
-import { P, TitleForm } from "@/components/common/Typography";
+import { P2, TitleForm } from "@/components/common/Typography";
 import LoginForm from "@/components/forms/LoginForm";
 
 export default function Login() {
@@ -11,10 +11,10 @@ export default function Login() {
         <div className="lg:w-1/2 flex flex-col justify-center place-items-center h-screen z-10">
           <div className="bg-white-smoke shadow-md rounded-md p-8 flex flex-col gap-5">
             <TitleForm>Sign in to your account</TitleForm>
-            <P className="text-gray-strong text-center max-w-md">
+            <P2 className="text-gray-strong text-center max-w-md">
               Sign in today to view your impact, manage your donations, and
               connect with others.
-            </P>
+            </P2>
             <LoginForm />
           </div>
         </div>
