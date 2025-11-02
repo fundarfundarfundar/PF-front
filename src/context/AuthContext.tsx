@@ -5,7 +5,7 @@ import { PATHROUTES } from "@/helpers/NavItems";
 import { IUserSession } from "@/interfaces/IUserSession";
 import { useRouter } from "next/navigation";
 
-//Defino Interfacz que define los valores
+//Defino Interfaz que define los valores
 interface AuthContextProps {
   dataUser: IUserSession | null | undefined;
   setDataUser: (dataUser: IUserSession | null) => void;

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Poppins, Merriweather } from "next/font/google";
 import { Toaster } from "sonner";
-import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import { ProjectsProvider } from "@/context/ProjetsContext";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import { AuthProvider } from "@/context/AuthContext";
+import "./globals.css";
 
 const proximaNova = Poppins({
   variable: "--font-proxima",
@@ -36,11 +37,13 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen">
         <Toaster position="bottom-right" richColors />
         <AuthProvider>
-          <>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </>
+          <ProjectsProvider>
+            <>
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </>
+          </ProjectsProvider>
         </AuthProvider>
       </body>
     </html>
