@@ -7,7 +7,7 @@ export interface IProjectFormValues {
   country: string;
   goalAmount: number;
   imageUrls: string[];
-  categoryId: number;
+  // categoryId: number;
 }
 
 export const projectFormInitialValues: IProjectFormValues = {
@@ -17,7 +17,7 @@ export const projectFormInitialValues: IProjectFormValues = {
   country: "",
   goalAmount: 0,
   imageUrls: [],
-  categoryId: 0,
+  // categoryId: 0,
 };
 
 export const projectValidationSchema = Yup.object({
@@ -41,9 +41,7 @@ export const projectValidationSchema = Yup.object({
   imageUrls: Yup.array()
     .of(Yup.string().url("Each image must be a valid URL"))
     .length(4, "Exactly 4 images are required"),
-  categoryId: Yup.number()
-    .typeError("Category is required")
-    .positive("Category must be selected"),
+  // categoryId: Yup.string().typeError("Category is required"),
   // .required("Category is required"),
 });
 
@@ -69,12 +67,5 @@ export const editProjectValidationSchema = Yup.object({
     .of(Yup.string().url("Each image must be a valid URL"))
     .max(4, "You can upload up to 4 images")
     .optional(),
-  categoryId: Yup.number()
-    .transform((value, originalValue) =>
-      String(originalValue).trim() === "" ? null : value
-    )
-    .nullable()
-    .optional()
-    .typeError("Category is required")
-    .positive("Category must be selected"),
+  // categoryId: Yup.string().nullable().optional(),
 });

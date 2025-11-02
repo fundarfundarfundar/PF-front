@@ -35,32 +35,34 @@ export default function ProjectTable() {
   };
 
   return (
-    <table className="w-full border-collapse bg-white-smoke shadow-sm rounded-lg">
-      <thead>
-        <tr className="bg-gray-strong text-left text-white-smoke">
-          <th className="p-3">Name</th>
-          <th className="p-3">Country</th>
-          <th className="p-3">Goal</th>
-          <th className="p-3">Raised</th>
-          <th className="p-3 text-right">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {allProjects.map((project: IProject) => (
-          <tr key={project.id} className="border-b hover:bg-gray-soft">
-            <td className="p-3">{project.title}</td>
-            <td className="p-3">{project.country}</td>
-            <td className="p-3">${project.goalAmount.toLocaleString()}</td>
-            <td className="p-3">
-              ${project.currentAmount?.toLocaleString() ?? "-"}
-            </td>
-            <td className="p-3 text-right flex justify-end gap-3">
-              <EditButton onEdit={() => handleEdit(project)} />
-              <DeleteButton onDelete={() => handleDelete(project.id)} />
-            </td>
+    <>
+      <table className="w-full border-collapse bg-white-smoke shadow-sm rounded-lg">
+        <thead>
+          <tr className="bg-gray-strong text-left text-white-smoke">
+            <th className="p-3">Name</th>
+            <th className="p-3">Country</th>
+            <th className="p-3">Goal</th>
+            <th className="p-3">Raised</th>
+            <th className="p-3 text-right">Actions</th>
           </tr>
-        ))}
-      </tbody>
+        </thead>
+        <tbody>
+          {allProjects.map((project: IProject) => (
+            <tr key={project.id} className="border-b hover:bg-gray-soft">
+              <td className="p-3">{project.title}</td>
+              <td className="p-3">{project.country}</td>
+              <td className="p-3">${project.goalAmount.toLocaleString()}</td>
+              <td className="p-3">
+                ${project.currentAmount?.toLocaleString() ?? "-"}
+              </td>
+              <td className="p-3 text-right flex justify-end gap-3">
+                <EditButton onEdit={() => handleEdit(project)} />
+                <DeleteButton onDelete={() => handleDelete(project.id)} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       {isModalOpen && (
         <ProjectModal
           project={selectedProject}
@@ -68,6 +70,6 @@ export default function ProjectTable() {
           onClose={() => setIsModalOpen(false)}
         />
       )}
-    </table>
+    </>
   );
 }
