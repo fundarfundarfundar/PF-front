@@ -32,7 +32,9 @@ export default function ProjectForm({
           await onSave(values);
           toast.success("Project updated successfully!");
         } else {
-          await addProject(values);
+          console.log("📤 Enviando datos al backend:", values);
+          const res = await addProject(values);
+          console.log("✅ Respuesta del backend:", res);
           toast.success("Project created successfully!");
         }
         resetForm();
@@ -180,6 +182,7 @@ export default function ProjectForm({
                   <input
                     id={`imageUrl${index}`}
                     type="url"
+                    accept="image/*"
                     name={`imageUrls[${index}]`}
                     value={formik.values.imageUrls[index] || ""}
                     onChange={formik.handleChange}
@@ -196,7 +199,7 @@ export default function ProjectForm({
               ))}
             </div>
 
-            <label htmlFor="categoryId" className="form-label-sec mb-1.5">
+            {/* <label htmlFor="categoryId" className="form-label-sec mb-1.5">
               Category
             </label>
             <select
@@ -208,16 +211,16 @@ export default function ProjectForm({
               className="form-input-sec"
             >
               <option value="">Select a category</option>
-              <option value={1}>Education</option>
-              <option value={2}>Nutrition</option>
-              <option value={3}>Community Infrastructure</option>
-              <option value={4}>Environment</option>
-              <option value={5}>Health</option>
+              <option value={"1"}>Education</option>
+              <option value={"2"}>Nutrition</option>
+              <option value={"3"}>Community Infrastructure</option>
+              <option value={"4"}>Environment</option>
+              <option value={"5"}>Health</option>
             </select>
 
             {formik.errors.categoryId && formik.touched.categoryId && (
               <p className="text-red-500 mt-1.5">{formik.errors.categoryId}</p>
-            )}
+            )} */}
           </div>
         </div>
 

@@ -97,14 +97,14 @@ export default function ProjectDetailPage() {
         <div className="grid grid-cols-2 gap-10 lg:px-30">
           <div className="flex flex-col gap-7">
             <Image
-              src={projectData.imageUrls[0]}
+              src={projectData.imageUrls[1]}
               alt={`Imagen de ${projectData.title}`}
               width={600}
               height={400}
               className="rounded-lg object-cover w-full h-[285px]"
             />
             <Image
-              src={projectData.imageUrls[0]}
+              src={projectData.imageUrls[2]}
               alt={`Imagen de ${projectData.title}`}
               width={600}
               height={400}
@@ -114,7 +114,7 @@ export default function ProjectDetailPage() {
 
           <div>
             <Image
-              src={projectData.imageUrls[0]}
+              src={projectData.imageUrls[3]}
               alt={`Imagen de ${projectData.title}`}
               width={800}
               height={600}
