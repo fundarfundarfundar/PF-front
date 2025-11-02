@@ -2,7 +2,7 @@ import { IProject } from "@/interfaces/IProject";
 
 export const MockProjects: IProject[] = [
   {
-    id: 1,
+    id: "1",
     title: "Feeding Hope",
     resume:
       "Providing daily nutritious meals to children in vulnerable Latin American communities.",
@@ -11,7 +11,7 @@ export const MockProjects: IProject[] = [
     country: "Guatemala",
     goalAmount: 50000,
     currentAmount: 32000,
-    images: [
+    imageUrls: [
       "https://www.henkel.es/resource/image/1124140/16x9/1920/1098/8c7739889076c6bbb295328959533e6e/7B165B5BF5647DDBEF6C79647FA4F6A9/proyectos-sociales-stage-jpg.webp",
       "https://cdn.pixabay.com/photo/2023/02/14/04/39/volunteer-7788809_1280.jpg",
       "https://as1.ftcdn.net/v2/jpg/14/48/80/98/1000_F_1448809845_p0dhcZnqqWsL9MrwOtzglhIdA9btfy2n.jpg",
@@ -19,7 +19,7 @@ export const MockProjects: IProject[] = [
     categoryId: 1,
   },
   {
-    id: 2,
+    id: "2",
     title: "Education for All",
     resume:
       "Expanding educational opportunities for children in rural Latin America.",
@@ -28,14 +28,14 @@ export const MockProjects: IProject[] = [
     country: "Peru",
     goalAmount: 20000,
     currentAmount: 15000,
-    images: [
+    imageUrls: [
       "https://res.cloudinary.com/worldpackers/image/upload/c_limit,f_auto,q_auto,w_1140/j0z44gmji2zpaujaq1bq",
       "https://as2.ftcdn.net/v2/jpg/09/72/66/13/1000_F_972661357_Pa5f2uo1gy0bMdbWxeMsfXPh54Gp7o9f.jpg",
     ],
     categoryId: 2,
   },
   {
-    id: 3,
+    id: "3",
     title: "Clean Water",
     resume:
       "Providing sustainable clean water systems to rural families in Latin America.",
@@ -44,14 +44,14 @@ export const MockProjects: IProject[] = [
     country: "Honduras",
     goalAmount: 30000,
     currentAmount: 10000,
-    images: [
+    imageUrls: [
       "https://res.cloudinary.com/worldpackers/image/upload/c_limit,f_auto,q_auto,w_1140/frpivkmxtvxs4rola6zs",
       "https://as2.ftcdn.net/v2/jpg/07/16/05/71/1000_F_716057139_FUM5NhLKLYdC8PAzJO6Fy5jgmO0dJHdW.jpg",
     ],
     categoryId: 3,
   },
   {
-    id: 4,
+    id: "4",
     title: "Building Smiles",
     resume:
       "Reconstructing homes and community spaces for families affected by disasters.",
@@ -60,14 +60,14 @@ export const MockProjects: IProject[] = [
     country: "Mexico",
     goalAmount: 50000,
     currentAmount: 32000,
-    images: [
+    imageUrls: [
       "https://cdn.pixabay.com/photo/2023/02/14/04/39/volunteer-7788809_1280.jpg",
       "https://as2.ftcdn.net/v2/jpg/09/83/84/89/1000_F_983848937_YQDpUZ5llDlr4IAvP8w5gD6WNzrwigi5.jpg",
     ],
     categoryId: 1,
   },
   {
-    id: 5,
+    id: "5",
     title: "Digital Literacy",
     resume:
       "Empowering Latin American youth through access to technology and digital education.",
@@ -76,14 +76,14 @@ export const MockProjects: IProject[] = [
     country: "Colombia",
     goalAmount: 25000,
     currentAmount: 12000,
-    images: [
+    imageUrls: [
       "https://as2.ftcdn.net/v2/jpg/17/14/93/71/1000_F_1714937110_9Jwmvpr0J2mVop0HoJaGDAUMmtrqChGm.jpg",
       "https://as2.ftcdn.net/v2/jpg/09/72/66/13/1000_F_972661357_Pa5f2uo1gy0bMdbWxeMsfXPh54Gp7o9f.jpg",
     ],
     categoryId: 2,
   },
   {
-    id: 6,
+    id: "6",
     title: "Pure Waters",
     resume:
       "Building rainwater collection systems for drought-prone communities in Latin America.",
@@ -92,7 +92,7 @@ export const MockProjects: IProject[] = [
     country: "Chile",
     goalAmount: 35000,
     currentAmount: 15000,
-    images: [
+    imageUrls: [
       "https://as1.ftcdn.net/v2/jpg/14/48/80/98/1000_F_1448809845_p0dhcZnqqWsL9MrwOtzglhIdA9btfy2n.jpg",
       "https://as2.ftcdn.net/v2/jpg/07/16/05/71/1000_F_716057139_FUM5NhLKLYdC8PAzJO6Fy5jgmO0dJHdW.jpg",
     ],

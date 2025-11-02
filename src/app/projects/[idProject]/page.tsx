@@ -1,22 +1,30 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { MockProjects } from "@/helpers/MockProjects";
+import { notFound, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IProject } from "@/interfaces/IProject";
 import { H2, P1, TitleProject } from "@/components/common/Typography";
 import { GoArrowRight } from "react-icons/go";
-import Image from "next/image";
+import { getProjectById } from "@/services/project.services";
 import BackButton from "@/components/common/BackButton.";
+import Image from "next/image";
 
 export default function ProjectDetailPage() {
   const params = useParams();
-  const projectId = Number(params.idProject);
+  const projectId = params.idProject;
   const [projectData, setProjectData] = useState<IProject | null>(null);
 
   useEffect(() => {
-    const project = MockProjects.find((p) => p.id === projectId);
-    setProjectData(project || null);
+    const fetchProjectById = async () => {
+      try {
+        const project = await getProjectById(projectId as string);
+        if (!project) return notFound();
+        setProjectData(project);
+      } catch (err) {
+        console.error("Error obterniendo el producto", err);
+      }
+    };
+    fetchProjectById();
   }, [projectId]);
 
   if (!projectData) {
@@ -34,7 +42,7 @@ export default function ProjectDetailPage() {
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-40 py-10 px-7 lg:px-30">
           <div className="lg:w-1/2">
             <Image
-              src={projectData.images[0]}
+              src={projectData.imageUrls[0]}
               alt={`Imagen de ${projectData.title}`}
               width={1400}
               height={1400}
@@ -73,7 +81,7 @@ export default function ProjectDetailPage() {
               <GoArrowRight className="text-blue-strong font-extrabold text-3xl" />
               <P1>
                 <span className="font-semibold">Raised:</span> $
-                {projectData.currentAmount.toLocaleString()}
+                {/* {projectData.currentAmount.toLocaleString()} */}
               </P1>
             </div>
             <div className="flex gap-2 items-center">
@@ -89,14 +97,14 @@ export default function ProjectDetailPage() {
         <div className="grid grid-cols-2 gap-10 lg:px-30">
           <div className="flex flex-col gap-7">
             <Image
-              src={projectData.images[0]}
+              src={projectData.imageUrls[0]}
               alt={`Imagen de ${projectData.title}`}
               width={600}
               height={400}
               className="rounded-lg object-cover w-full h-[285px]"
             />
             <Image
-              src={projectData.images[0]}
+              src={projectData.imageUrls[0]}
               alt={`Imagen de ${projectData.title}`}
               width={600}
               height={400}
@@ -106,7 +114,7 @@ export default function ProjectDetailPage() {
 
           <div>
             <Image
-              src={projectData.images[0]}
+              src={projectData.imageUrls[0]}
               alt={`Imagen de ${projectData.title}`}
               width={800}
               height={600}
