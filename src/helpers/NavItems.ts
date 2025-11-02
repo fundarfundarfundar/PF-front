@@ -3,7 +3,7 @@ export enum PATHROUTES {
   LOGIN = "/login",
   REGISTER = "/register",
   USER_DASHBOARD = "/dashboard/profile",
-  ADM_DASHBOARD = "/dashboard/adm",
+  ADM_DASHBOARD = "/dashboard/admin",
   EDUCATION = "/projects/education",
   NUTRITION = "/projects/nutrition",
   INFRAESTRUCTURE = "/projects/infraestructure",

@@ -46,8 +46,16 @@ body {
   @apply font-bold text-black-medium;
 }
 
+.form-label-sec {
+  @apply block text-sm font-medium;
+}
+
 .form-input {
   @apply p-3 border border-gray-500 rounded-md;
+}
+
+.form-input-sec {
+  @apply w-full border rounded-lg p-2;
 }
 
 .btn-primary {

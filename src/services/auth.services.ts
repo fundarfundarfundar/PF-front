@@ -11,24 +11,15 @@ export const loginUser = async (userData: ILoginFormValues) => {
       body: JSON.stringify(userData),
     });
 
-    // if (!response.ok) {
-    //   const errorData = await response.json();
-    //   return {
-    //     success: false,
-    //     message: errorData.message || "Invalid credentials",
-    //   };
-    // }
-
-    const data = await response.json();
-
-    if (data.result === "Credenciales incorrectas") {
+    if (!response.ok) {
+      const errorData = await response.json();
       return {
         success: false,
-        message: data.result || "Invalid credentials",
+        message: errorData.message || "Invalid credentials",
       };
     }
+    const data = await response.json();
 
-    // const data = await response.json();
     return {
       success: true,
       message: data.message,

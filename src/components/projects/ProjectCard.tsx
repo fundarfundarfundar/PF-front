@@ -1,6 +1,6 @@
 import { IProject } from "@/interfaces/IProject";
-import { P, TitleProject } from "../common/Typography";
-import { getCategoryNameById } from "@/helpers/categories";
+import { P1, TitleProject } from "../common/Typography";
+// import { getCategoryNameById } from "@/helpers/categories";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,15 +21,15 @@ export default function ProjectCard({ project }: CardProps) {
   return (
     <section
       key={project.title}
-      className="flex flex-col gap-10 lg:flex lg:flex-row lg:gap-30 py-15 even:lg:flex-row-reverse"
+      className="flex flex-col gap-10 lg:flex lg:flex-row lg:gap-40 py-15 even:lg:flex-row-reverse"
     >
       <div className="lg:w-1/2">
         <Image
-          src={project.images[0]}
+          src={project.imageUrls[0]}
           alt={`Imagen de ${project.title}`}
           width={1400}
           height={1400}
-          className="rounded-xl"
+          className="rounded-xl h-[500px]"
         />
       </div>
 
@@ -39,11 +39,12 @@ export default function ProjectCard({ project }: CardProps) {
           <br />
           {lastWord}
         </TitleProject>
-        <P className="text-black-medium lg:w-130">{project.resume}</P>
+        <P1 className="text-black-medium lg:w-130">{project.resume}</P1>
         <Link
-          href={`/projects/${getCategoryNameById(project.categoryId)}/${
-            project.id
-          }`}
+          // href={`/projects/${getCategoryNameById(project.categoryId)}/${
+          //   project.id
+          // }`}
+          href={`/projects/${project.id}`}
         >
           <button className="btn-primary mt-7">SEE MORE</button>
         </Link>
