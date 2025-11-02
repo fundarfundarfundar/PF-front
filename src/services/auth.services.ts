@@ -5,7 +5,7 @@ const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const loginUser = async (userData: ILoginFormValues) => {
   try {
-    const response = await fetch(`${apiURL}/users/login`, {
+    const response = await fetch(`${apiURL}/auth/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
@@ -37,9 +37,9 @@ export const loginUser = async (userData: ILoginFormValues) => {
 
 export const registerUser = async (userData: IRegisterFormValues) => {
   try {
-    const response = await fetch(`${apiURL}/users/register`, {
+    const response = await fetch(`${apiURL}/auth/signup`, {
       method: "POST",
-      headers: { "Conten-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
     });
 
