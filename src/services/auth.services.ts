@@ -11,20 +11,29 @@ export const loginUser = async (userData: ILoginFormValues) => {
       body: JSON.stringify(userData),
     });
 
+    // if (!response.ok) {
+    //   const errorData = await response.json();
+    //   return {
+    //     success: false,
+    //     message: errorData.message || "Invalid credentials",
+    //   };
+    // }
+
     const data = await response.json();
 
-    if (!response.ok) {
+    if (data.result === "Credenciales incorrectas") {
       return {
         success: false,
-        message: data?.message || "Unable to sign in. Please try again.",
+        message: data.result || "Invalid credentials",
       };
     }
 
+    // const data = await response.json();
     return {
       success: true,
-      message: "Login successful",
-      user: data?.user,
-      token: data?.token,
+      message: data.message,
+      user: data.result.user,
+      token: data.result.access_token,
     };
   } catch (error) {
     console.error("API error", error);
@@ -51,6 +60,7 @@ export const registerUser = async (userData: IRegisterFormValues) => {
         message: data?.message || "Registration failed",
       };
     }
+
     return {
       success: true,
       message: "User registered successfully",
@@ -59,7 +69,7 @@ export const registerUser = async (userData: IRegisterFormValues) => {
     console.error("API error", error);
     return {
       success: false,
-      message: "Unexpected error, please try again later",
+      message: "Unexpected error. Please try again later.",
     };
   }
 };

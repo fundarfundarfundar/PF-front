@@ -12,10 +12,10 @@ export default function Banner() {
         </TitleBanner>
         <P className="mb-6 text-gray-medium">
           At Fund.AR, we promote solidarity projects that improve the quality of
-          life of vulnerable communities in Argentina.
+          life of vulnerable communities in Latam.
         </P>
         <Link
-          href={PATHROUTES.PROJETS}
+          href={PATHROUTES.PROJECTS}
           className="text-[14px] lg:text-[16px] border-b-2 border-yellow-strong w-fit hover:text-yellow-strong transition"
         >
           See projects →
@@ -23,8 +23,7 @@ export default function Banner() {
       </div>
 
       <div
-        className="flex-1 lg:w-[60%] bg-cover bg-center w-full lg:h-auto h-[42svh]"
-        style={{ backgroundImage: "url('/images/desktop/bannerFundar.jpg')" }}
+        className={`flex-1 lg:w-[60%] bg-cover bg-center w-full lg:h-auto h-[42svh] bg-[url("/images/desktop/bannerFundar.jpg")]`}
       ></div>
     </section>
   );

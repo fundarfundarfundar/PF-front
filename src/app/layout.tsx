@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
+import { AuthProvider } from "@/context/AuthContext";
 
 const proximaNova = Poppins({
   variable: "--font-proxima",
@@ -32,11 +33,15 @@ export default function RootLayout({
       lang="en"
       className={`${proximaNova.variable} ${kazimir.variable} antialiased`}
     >
-      <body>
+      <body className="flex flex-col min-h-screen">
         <Toaster position="bottom-right" richColors />
-        <Navbar />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </>
+        </AuthProvider>
       </body>
     </html>
   );

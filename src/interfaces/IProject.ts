@@ -1,9 +1,11 @@
 export interface IProject {
   id: number;
   title: string;
+  resume: string;
   description: string;
-  date: string;
-  imageUrl: string;
-  status: "active" | "inactive";
+  country: string;
+  goalAmount: number;
+  currentAmount: number;
+  images: string[];
   categoryId: number;
 }
