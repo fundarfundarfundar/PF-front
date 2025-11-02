@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 //Defino Interfaz que define los valores
 interface AuthContextProps {
-  dataUser: IUserSession | null | undefined;
+  dataUser: IUserSession | null;
   setDataUser: (dataUser: IUserSession | null) => void;
   logout: () => void;
 }
@@ -27,10 +27,7 @@ interface AuthProviderProps {
 //Crear nuestro componente de AuthProvider, encargado de manejar estados, etc
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const router = useRouter();
-
-  const [dataUser, setDataUser] = useState<IUserSession | null | undefined>(
-    undefined
-  );
+  const [dataUser, setDataUser] = useState<IUserSession | null>(null);
 
   //Lógica que controlaré con useEffect (1 o 2 )
   useEffect(() => {
