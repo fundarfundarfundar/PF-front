@@ -1,6 +1,6 @@
 import { IProject } from "@/interfaces/IProject";
-import { addProject } from "@/services/project.services";
-// import { uploadImage } from "@/services/uploadImage.services";
+import { addProject, updateProject } from "@/services/project.services";
+import { uploadSingleImage } from "@/services/uploadImage.services";
 import {
   editProjectValidationSchema,
   IProjectFormValues,
@@ -17,11 +17,7 @@ interface ProjectFormProps {
   onClose: () => void;
 }
 
-export default function ProjectForm({
-  project,
-  onSave,
-  onClose,
-}: ProjectFormProps) {
+export default function ProjectForm({ project, onClose }: ProjectFormProps) {
   const formik = useFormik<IProjectFormValues>({
     initialValues: project || projectFormInitialValues,
     validationSchema: project
@@ -31,27 +27,48 @@ export default function ProjectForm({
 
     onSubmit: async (values, { resetForm }) => {
       try {
-        if (project) {
-          await onSave(values);
-          toast.success("Project updated successfully!");
+        // 1️⃣ Subir imágenes si son nuevas (tipo File)
+        const uploadedUrls = await Promise.all(
+          values.imageUrls.map(async (img: File | string) => {
+            if (img instanceof File) {
+              const url = await uploadSingleImage(img); // ya no necesita uuid
+              return url;
+            }
+            return img; // si ya es string (caso edición)
+          })
+        );
+        // 2️⃣ Crear objeto del nuevo proyecto
+        const newProject = {
+          title: values.title.trim(),
+          resume: values.resume.trim(),
+          description: values.description.trim(),
+          imageUrls: uploadedUrls.filter(Boolean), // evita nulls o vacíos
+          country: values.country,
+          goalAmount: Number(values.goalAmount),
+        };
+        // 3️⃣ Enviar al backend
+        if (project?.id) {
+          await updateProject(project.id, newProject);
+          toast.success("Project updated succesfully");
         } else {
-          console.log("📤 Enviando datos al backend:", values);
-          const res = await addProject(values);
-          console.log("✅ Respuesta del backend:", res);
-          toast.success("Project created successfully!");
+          await addProject(newProject);
+          toast.success("Project created successfully");
         }
         resetForm();
         onClose();
       } catch (error) {
-        console.error("❌ Error creating project:", error);
-        toast.error("Error while saving project. Please try again.");
+        console.error("❌ Error al crear el proyecto:", error);
+        toast.error("Error creatin project");
       }
     },
   });
 
   return (
     <div className="bg-white-smoke rounded-xl p-6 w-[60vw] shadow-lg">
-      <form onSubmit={formik.handleSubmit}>
+      <form
+        onSubmit={formik.handleSubmit}
+        onSubmitCapture={formik.handleSubmit}
+      >
         <h3 className="text-xl font-semibold mb-4">
           {project ? "Edit Project" : "Add Project"}
         </h3>
@@ -173,11 +190,8 @@ export default function ProjectForm({
 
           <div className="w-1/2 flex flex-col">
             {Array.from({ length: 4 }).map((_, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-3 mb-4 border border-red-400"
-              >
-                <div className="flex-1 border-blue-500 border">
+              <div key={index} className="flex items-center">
+                <div className="flex-1">
                   <label
                     htmlFor={`image-${index}`}
                     className="form-label-sec mb-1.5 block"
@@ -189,35 +203,52 @@ export default function ProjectForm({
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={(e) => {
+                    onChange={async (e) => {
                       const file = e.currentTarget.files?.[0];
-                      if (file) {
+                      if (!file) return;
+                      try {
+                        // Mostrar un preview rápido mientras sube
                         formik.setFieldValue(`imageUrls[${index}]`, file);
+                        // Subir al backend inmediatamente
+                        const url = await uploadSingleImage(file);
+                        // Reemplazar el File por la URL definitiva
+                        formik.setFieldValue(`imageUrls[${index}]`, url);
+                      } catch (err) {
+                        console.error("❌ Error al subir imagen:", err);
                       }
                     }}
                   />
-                  <label
-                    htmlFor={`image-${index}`}
-                    className="w-full border rounded-lg px-4 mb-1.5 block cursor-pointer py-2 hover:bg-gray-soft transition"
-                  >
-                    📁{" "}
-                    {formik.values.imageUrls[index]
-                      ? "Cambiar imagen"
-                      : "Seleccionar imagen"}
-                  </label>
-                </div>
-                {/* Mostrar la URL o vista previa si ya hay imagen */}
-                <div className="w-10 h-10 flex items-center justify-center border border-green-500 rounded overflow-hidden bg-gray-50">
-                  {formik.values.imageUrls[index] ? (
-                    <Image
-                      src={formik.values.imageUrls[index]}
-                      alt={`Preview ${index + 1}`}
-                      fill
-                      className="object-cover rounded"
-                    />
-                  ) : (
-                    <span className="text-gray-400 text-xs">No image</span>
-                  )}
+                  <div className="flex gap-3">
+                    <label
+                      htmlFor={`image-${index}`}
+                      className="w-full border rounded-lg px-4 mb-1.5 block cursor-pointer py-2 hover:bg-gray-soft transition"
+                    >
+                      📁{" "}
+                      {formik.values.imageUrls[index]
+                        ? "Cambiar imagen"
+                        : "Seleccionar imagen"}
+                    </label>
+                    <div className="w-10 h-10 relative flex items-center justify-center border border-gray-medium rounded overflow-hidden bg-gray-50">
+                      {formik.values.imageUrls[index] ? (
+                        <Image
+                          src={
+                            typeof formik.values.imageUrls[index] === "string"
+                              ? formik.values.imageUrls[index]
+                              : URL.createObjectURL(
+                                  formik.values.imageUrls[index]
+                                )
+                          }
+                          alt={`Preview ${index + 1}`}
+                          fill
+                          className="object-cover rounded"
+                        />
+                      ) : (
+                        <span className="text-gray-medium text-center text-[9px]">
+                          No image
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

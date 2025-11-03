@@ -1,14 +1,30 @@
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
-export interface IUploadImageProps {
-  file: File;
-  uuid: string;
-}
+export const uploadSingleImage = async (file: File) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
 
-export const uploadImage = async ({
-  file,
-  uuid,
-}: IUploadImageProps): Promise<string> => {
+    const response = await fetch(`${apiURL}/files/uploadTempImage`, {
+      method: "POST",
+      body: formData,
+    });
+    if (!response.ok) {
+      throw new Error(`Error al subir imagen: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.imageUrl;
+  } catch (error) {
+    console.error("Error subiendo imagen:", error);
+    throw error;
+  }
+};
+
+export const uploadImage = async (
+  file: File,
+  uuid: string
+): Promise<string> => {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("uuid", uuid);
@@ -22,12 +38,7 @@ export const uploadImage = async ({
     const err = await response.text();
     throw new Error(`Error uploading image: ${err}`);
   }
-
   const data = await response.json();
   console.log("Upload response:", data);
-
-  // ⚠️ Ajusta esto según lo que devuelva tu back
-  // Si devuelve el usuario actualizado, podrías tomar la propiedad donde venga la URL.
-  // Por ejemplo: data.user.imageUrl o data.image
   return data.imageUrl || data.url || "";
 };
