@@ -1,6 +1,11 @@
 import { IUser } from "./IUser";
 
 export interface IUserSession {
+  // token: string;
+  // user: IUser;
   token: string;
-  user: IUser;
+  email: string;   // <-- agrega esta línea
+  name: string;
+  role: string;
+  id: string;
 }

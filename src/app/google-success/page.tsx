@@ -12,16 +12,33 @@ export default function GoogleSuccessPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
+    const email = params.get("email");
+    const name = params.get("name");
 
-    if (token) {
-      // Guardar token en contexto o localStorage
+  //   if (token) {
+  //     // Guardar token en contexto o localStorage
+  //     localStorage.setItem("token", token);
+  //     setDataUser({ token, user }); // si usás AuthContext
+
+  //     // Redirigir al dashboard (o donde quieras)
+  //     router.push(PATHROUTES.PROJECTS);
+  //   } else {
+  //     router.push(PATHROUTES.LOGIN);
+  //   }
+  // }, [router, setDataUser]);
+   if (token && email && name) {
       localStorage.setItem("token", token);
-      setDataUser({ token, user }); // si usás AuthContext
 
-      // Redirigir al dashboard (o donde quieras)
+      // Construye el objeto user manualmente
+      setDataUser({
+        token: token,
+        email,
+        name,
+        role: "user", // Si tienes el rol en la URL, úsalo; si no, pon "user"
+        id: "",       // Si tienes el id en la URL, úsalo; si no, pon ""
+      });
+
       router.push(PATHROUTES.PROJECTS);
-    } else {
-      router.push(PATHROUTES.LOGIN);
     }
   }, [router, setDataUser]);
 
