@@ -10,7 +10,7 @@ export default function Logo() {
         height={55}
         className="hidden lg:block"
       />
-      <h1 className="text-black-medium text-[30px] font-extrabold hidden tracking-tight lg:block font-kazimir">
+      <h1 className="text-black-medium text-[30px] font-extrabold hidden tracking-wider lg:block font-kazimir">
         FUND.AR
       </h1>
     </div>

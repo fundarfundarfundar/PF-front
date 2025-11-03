@@ -10,6 +10,7 @@ import {
   HandCoins,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import Loading from "../common/Loading";
 
 const links = [
   { href: "/dashboard/admin", label: "Overview", icon: LayoutDashboard },
@@ -20,10 +21,14 @@ const links = [
 ];
 
 export default function Sidebar() {
-  const { dataUser } = useAuth();
+  const { dataUser, isLoading } = useAuth();
   const pathname = usePathname();
 
-  return (
+  return isLoading ? (
+    <aside>
+      <Loading />
+    </aside>
+  ) : (
     <aside className="w-64 bg-gray-strong shadow-md p-6 hidden lg:flex flex-col justify-between">
       <div className="space-y-6">
         <h2 className="text-2xl font-bold text-white-smoke">

@@ -25,7 +25,7 @@ export const publicNavItems = [
   },
 ];
 
-export const privatedNavItems = [
+export const privatedUserNavItems = [
   {
     name: "HOME",
     route: PATHROUTES.HOME,
@@ -39,6 +39,19 @@ export const privatedNavItems = [
   {
     name: "MY HELP",
     route: PATHROUTES.USER_DASHBOARD,
+    prefetch: true,
+  },
+];
+
+export const privatedAdmNavItems = [
+  {
+    name: "HOME",
+    route: PATHROUTES.HOME,
+    prefetch: true,
+  },
+  {
+    name: "OUR PROJECTS",
+    route: PATHROUTES.PROJECTS,
     prefetch: true,
   },
   {

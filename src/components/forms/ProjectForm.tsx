@@ -181,7 +181,7 @@ export default function ProjectForm({
                   </label>
                   <input
                     id={`imageUrl${index}`}
-                    type="url"
+                    type="file"
                     accept="image/*"
                     name={`imageUrls[${index}]`}
                     value={formik.values.imageUrls[index] || ""}
