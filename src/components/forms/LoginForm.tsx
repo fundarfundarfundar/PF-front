@@ -25,7 +25,6 @@ export default function LoginForm() {
 
     onSubmit: async (values, { resetForm }) => {
       const response = await loginUser(values);
-      console.log("Login response:", response);
       if (!response.success) {
         toast.error("Login failed");
         return;
