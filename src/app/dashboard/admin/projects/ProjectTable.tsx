@@ -30,7 +30,8 @@ export default function ProjectTable() {
 
   const handleSave = async (data: any) => {
     if (!selectedProject) return;
-    await editProject(selectedProject.id, data);
+    const updatedData = { ...selectedProject, ...data };
+    await editProject(selectedProject.id, updatedData);
     setIsModalOpen(false);
   };
 
