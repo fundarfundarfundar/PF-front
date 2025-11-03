@@ -16,7 +16,7 @@ export default function GoogleSuccessPage() {
     if (token) {
       // Guardar token en contexto o localStorage
       localStorage.setItem("token", token);
-      setDataUser({ token }); // si usás AuthContext
+      setDataUser({ token, user }); // si usás AuthContext
 
       // Redirigir al dashboard (o donde quieras)
       router.push(PATHROUTES.PROJECTS);
