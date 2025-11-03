@@ -1,5 +1,6 @@
 import { IProject } from "@/interfaces/IProject";
 import { addProject } from "@/services/project.services";
+// import { uploadImage } from "@/services/uploadImage.services";
 import {
   editProjectValidationSchema,
   IProjectFormValues,
@@ -7,6 +8,7 @@ import {
   projectValidationSchema,
 } from "@/validators/addProjectSchema";
 import { useFormik } from "formik";
+import Image from "next/image";
 import { toast } from "sonner";
 
 interface ProjectFormProps {
@@ -48,7 +50,7 @@ export default function ProjectForm({
   });
 
   return (
-    <div className="bg-white-smoke rounded-xl p-6 w-[50vw] shadow-lg">
+    <div className="bg-white-smoke rounded-xl p-6 w-[60vw] shadow-lg">
       <form onSubmit={formik.handleSubmit}>
         <h3 className="text-xl font-semibold mb-4">
           {project ? "Edit Project" : "Add Project"}
@@ -170,37 +172,59 @@ export default function ProjectForm({
           </div>
 
           <div className="w-1/2 flex flex-col">
-            <label></label>
-            <div className="flex flex-col">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <div key={index}>
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 mb-4 border border-red-400"
+              >
+                <div className="flex-1 border-blue-500 border">
                   <label
-                    htmlFor={`imageUrl${index}`}
-                    className="form-label-sec mb-1.5"
+                    htmlFor={`image-${index}`}
+                    className="form-label-sec mb-1.5 block"
                   >
                     Image {index + 1}
                   </label>
                   <input
-                    id={`imageUrl${index}`}
-                    type="url"
+                    id={`image-${index}`}
+                    type="file"
                     accept="image/*"
-                    name={`imageUrls[${index}]`}
-                    value={formik.values.imageUrls[index] || ""}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    placeholder="https://example.com/image.jpg"
-                    className="form-input-sec mb-1.5"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.currentTarget.files?.[0];
+                      if (file) {
+                        formik.setFieldValue(`imageUrls[${index}]`, file);
+                      }
+                    }}
                   />
-                  {formik.errors.imageUrls && formik.touched.imageUrls ? (
-                    <p id="email-errors" className="text-red-500 mb-1.5">
-                      {formik.errors.imageUrls}
-                    </p>
-                  ) : null}
+                  <label
+                    htmlFor={`image-${index}`}
+                    className="w-full border rounded-lg px-4 mb-1.5 block cursor-pointer py-2 hover:bg-gray-soft transition"
+                  >
+                    📁{" "}
+                    {formik.values.imageUrls[index]
+                      ? "Cambiar imagen"
+                      : "Seleccionar imagen"}
+                  </label>
                 </div>
-              ))}
-            </div>
+                {/* Mostrar la URL o vista previa si ya hay imagen */}
+                <div className="w-10 h-10 flex items-center justify-center border border-green-500 rounded overflow-hidden bg-gray-50">
+                  {formik.values.imageUrls[index] ? (
+                    <Image
+                      src={formik.values.imageUrls[index]}
+                      alt={`Preview ${index + 1}`}
+                      fill
+                      className="object-cover rounded"
+                    />
+                  ) : (
+                    <span className="text-gray-400 text-xs">No image</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-            {/* <label htmlFor="categoryId" className="form-label-sec mb-1.5">
+        {/* <label htmlFor="categoryId" className="form-label-sec mb-1.5">
               Category
             </label>
             <select
@@ -222,8 +246,8 @@ export default function ProjectForm({
             {formik.errors.categoryId && formik.touched.categoryId && (
               <p className="text-red-500 mt-1.5">{formik.errors.categoryId}</p>
             )} */}
-          </div>
-        </div>
+        {/* </div>
+        </div> */}
 
         <div className="flex justify-end gap-3 mt-6">
           <button
