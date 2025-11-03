@@ -21,10 +21,11 @@ export default function ProjectForm({
   onClose,
 }: ProjectFormProps) {
   const formik = useFormik<IProjectFormValues>({
-    initialValues: projectFormInitialValues,
+    initialValues: project || projectFormInitialValues,
     validationSchema: project
       ? editProjectValidationSchema
       : projectValidationSchema,
+    enableReinitialize: true,
 
     onSubmit: async (values, { resetForm }) => {
       try {
@@ -181,7 +182,7 @@ export default function ProjectForm({
                   </label>
                   <input
                     id={`imageUrl${index}`}
-                    type="file"
+                    type="url"
                     accept="image/*"
                     name={`imageUrls[${index}]`}
                     value={formik.values.imageUrls[index] || ""}
