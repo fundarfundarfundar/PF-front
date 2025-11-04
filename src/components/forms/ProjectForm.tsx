@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { IProject } from "@/interfaces/IProject";
 import { addProject, updateProject } from "@/services/project.services";
 import { uploadSingleImage } from "@/services/uploadImage.services";
@@ -8,8 +9,8 @@ import {
   projectValidationSchema,
 } from "@/validators/addProjectSchema";
 import { useFormik } from "formik";
-import Image from "next/image";
 import { toast } from "sonner";
+import { useProjects } from "@/context/ProjetsContext";
 
 interface ProjectFormProps {
   project?: IProject | null;
@@ -18,6 +19,8 @@ interface ProjectFormProps {
 }
 
 export default function ProjectForm({ project, onClose }: ProjectFormProps) {
+  const { refreshProjects } = useProjects();
+
   const formik = useFormik<IProjectFormValues>({
     initialValues: project || projectFormInitialValues,
     validationSchema: project
@@ -54,6 +57,7 @@ export default function ProjectForm({ project, onClose }: ProjectFormProps) {
           await addProject(newProject);
           toast.success("Project created successfully");
         }
+        await refreshProjects();
         resetForm();
         onClose();
       } catch (error) {
