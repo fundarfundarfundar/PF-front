@@ -5,23 +5,26 @@ import ProjectModal from "./ProjectModal";
 import { useProjects } from "@/context/ProjetsContext";
 import { IProject } from "@/interfaces/IProject";
 import { deleteProject } from "@/services/project.services";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function ProjectTable() {
-  const { allProjects, editProject } = useProjects();
+  const { allProjects, editProject, refreshProjects } = useProjects();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
 
   const handleDelete = async (idProject: string) => {
     const confirmDelete = confirm(
-      "Are you sure you want to delete this project"
+      "Are you sure you want to delete this project?"
     );
     if (!confirmDelete) return;
-
     try {
       await deleteProject(idProject);
+      toast.success("Project deleted successfully");
+      refreshProjects();
     } catch (err) {
       console.error("Error eliminando proyecto", err);
+      toast.error("Error deleting project");
     }
   };
 
@@ -36,6 +39,8 @@ export default function ProjectTable() {
     await editProject(selectedProject.id, updatedData);
     setIsModalOpen(false);
   };
+
+  useEffect(() => {}, [allProjects.length]);
 
   return (
     <>
