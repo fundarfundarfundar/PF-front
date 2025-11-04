@@ -13,7 +13,9 @@ export default function ProjectTable() {
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
 
   const handleDelete = async (idProject: string) => {
-    const confirmDelete = confirm("Seguro que quieres eliminar este proyecto?");
+    const confirmDelete = confirm(
+      "Are you sure you want to delete this project"
+    );
     if (!confirmDelete) return;
 
     try {
