@@ -18,10 +18,10 @@ export default function Navbar() {
 
   let navItems = publicNavItems;
 
-  if (dataUser?.user.role === "user") {
-    navItems = privatedUserNavItems;
-  } else if (dataUser?.user.role === "admin") {
+  if (dataUser?.user.role === "admin") {
     navItems = privatedAdmNavItems;
+  } else if (dataUser?.token) {
+    navItems = privatedUserNavItems;
   }
 
   return (

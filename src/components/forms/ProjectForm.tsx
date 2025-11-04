@@ -255,28 +255,30 @@ export default function ProjectForm({ project, onClose }: ProjectFormProps) {
           </div>
         </div>
 
-        {/* <label htmlFor="categoryId" className="form-label-sec mb-1.5">
-              Category
-            </label>
-            <select
-              id="categoryId"
-              name="categoryId"
-              value={formik.values.categoryId}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className="form-input-sec"
-            >
-              <option value="">Select a category</option>
-              <option value={"1"}>Education</option>
-              <option value={"2"}>Nutrition</option>
-              <option value={"3"}>Community Infrastructure</option>
-              <option value={"4"}>Environment</option>
-              <option value={"5"}>Health</option>
-            </select>
-
-            {formik.errors.categoryId && formik.touched.categoryId && (
-              <p className="text-red-500 mt-1.5">{formik.errors.categoryId}</p>
-            )} */}
+        {/* <label
+          htmlFor="categoryId"
+          className="form-label-sec mb-1.5"
+        >
+          Category
+        </label>
+        <select
+          id="categoryId"
+          name="categoryId"
+          // value={formik.values.categoryId}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          className="form-input-sec"
+        >
+          <option value="">Select a category</option>
+          <option value={"1"}>Education</option>
+          <option value={"2"}>Nutrition</option>
+          <option value={"3"}>Community Infrastructure</option>
+          <option value={"4"}>Environment</option>
+          <option value={"5"}>Health</option>
+        </select> */}
+        {/* {formik.errors.categoryId && formik.touched.categoryId && (
+        <p className="text-red-500 mt-1.5">{formik.errors.categoryId}</p>
+      )} */}
         {/* </div>
         </div> */}
 

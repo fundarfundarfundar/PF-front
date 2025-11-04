@@ -4,6 +4,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { PATHROUTES } from "@/helpers/NavItems";
+import { jwtDecode } from "jwt-decode";
+
+interface JwtPayload {
+  id: string;
+  email: string;
+  role: "user" | "admin";
+}
 
 export default function GoogleSuccessPage() {
   const router = useRouter();
@@ -12,33 +19,26 @@ export default function GoogleSuccessPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
-    const email = params.get("email");
-    const name = params.get("name");
 
-  //   if (token) {
-  //     // Guardar token en contexto o localStorage
-  //     localStorage.setItem("token", token);
-  //     setDataUser({ token, user }); // si usás AuthContext
+    if (token) {
+      const decoded = jwtDecode<JwtPayload>(token);
 
-  //     // Redirigir al dashboard (o donde quieras)
-  //     router.push(PATHROUTES.PROJECTS);
-  //   } else {
-  //     router.push(PATHROUTES.LOGIN);
-  //   }
-  // }, [router, setDataUser]);
-   if (token && email && name) {
-      localStorage.setItem("token", token);
+      const userSession = {
+        token,
+        user: {
+          id: decoded.id,
+          email: decoded.email,
+          role: decoded.role,
+        },
+      };
 
-      // Construye el objeto user manualmente
-      setDataUser({
-        token: token,
-        email,
-        name,
-        role: "user", // Si tienes el rol en la URL, úsalo; si no, pon "user"
-        id: "",       // Si tienes el id en la URL, úsalo; si no, pon ""
-      });
+      setDataUser(userSession);
+
+      localStorage.setItem("userSession", JSON.stringify(userSession));
 
       router.push(PATHROUTES.PROJECTS);
+    } else {
+      router.push(PATHROUTES.LOGIN);
     }
   }, [router, setDataUser]);
 
