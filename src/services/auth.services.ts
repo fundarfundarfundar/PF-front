@@ -37,6 +37,8 @@ export const loginUser = async (userData: ILoginFormValues) => {
 
 export const registerUser = async (userData: IRegisterFormValues) => {
   try {
+    console.log("🌍 Enviando registro a:", `${apiURL}/auth/register`);
+    console.log("📦 Datos:", userData);
     const response = await fetch(`${apiURL}/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

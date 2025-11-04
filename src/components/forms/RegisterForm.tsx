@@ -20,6 +20,7 @@ export default function RegisterForm() {
     validationSchema: registerValidationSchema,
 
     onSubmit: async (values, { resetForm }) => {
+      console.log("Estos son los values enviados", values);
       const response = await registerUser(values);
       if (response.success) {
         toast.success("User registered successfully");
