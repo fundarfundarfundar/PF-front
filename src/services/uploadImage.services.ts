@@ -21,24 +21,29 @@ export const uploadSingleImage = async (file: File) => {
   }
 };
 
-export const uploadImage = async (
+export const uploadProfileImage = async (
   file: File,
   uuid: string
 ): Promise<string> => {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("uuid", uuid);
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("uuid", uuid);
 
-  const response = await fetch(`${apiURL}/files/uploadImage`, {
-    method: "POST",
-    body: formData,
-  });
+    const response = await fetch(`${apiURL}/files/uploadImage`, {
+      method: "POST",
+      body: formData,
+    });
 
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`Error uploading image: ${err}`);
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(`Error uploading image: ${err}`);
+    }
+
+    const data = await response.json();
+    return data.imageUrl;
+  } catch (err) {
+    console.error("Server error while uploading profile image:", err);
+    throw err;
   }
-  const data = await response.json();
-  console.log("Upload response:", data);
-  return data.imageUrl || data.url || "";
 };

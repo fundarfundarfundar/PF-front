@@ -1,11 +1,12 @@
+import Navbar from "@/components/common/Navbar";
+import Footer from "@/components/common/Footer";
+import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins, Merriweather } from "next/font/google";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/AuthContext";
 import { ProjectsProvider } from "@/context/ProjetsContext";
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
-import "./globals.css";
+import { UserProvider } from "@/context/UserContext";
 
 const proximaNova = Poppins({
   variable: "--font-proxima",
@@ -36,15 +37,17 @@ export default function RootLayout({
     >
       <body className="flex flex-col min-h-screen">
         <Toaster position="bottom-right" richColors />
-        <AuthProvider>
-          <ProjectsProvider>
-            <>
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </>
-          </ProjectsProvider>
-        </AuthProvider>
+        <UserProvider>
+          <AuthProvider>
+            <ProjectsProvider>
+              <>
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </>
+            </ProjectsProvider>
+          </AuthProvider>
+        </UserProvider>
       </body>
     </html>
   );

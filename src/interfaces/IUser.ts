@@ -2,7 +2,8 @@ import { IDonation } from "./IDonation";
 
 export interface IUser {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   country?: string;
   city?: string;
@@ -10,5 +11,6 @@ export interface IUser {
   birthDate?: string | Date;
   address?: string;
   donations?: IDonation[];
+  imageUrl?: string;
   role: "admin" | "user";
 }

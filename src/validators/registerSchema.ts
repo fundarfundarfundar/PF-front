@@ -1,23 +1,34 @@
 import * as Yup from "yup";
 
 export interface IRegisterFormValues {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
 export const registerInitialValues = {
-  name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   password: "",
   confirmPassword: "",
 };
 
 export const registerValidationSchema = Yup.object({
-  name: Yup.string()
-    .matches(/^[A-Za-zÀ-ÿ\s]+$/, "Name can only contain letters and spaces")
-    .required("Please provide your first and last name"),
+  firstName: Yup.string()
+    .matches(
+      /^[A-Za-zÀ-ÿ\s]+$/,
+      "First name can only contain letters and spaces"
+    )
+    .required("Please provide your first name"),
+  lastName: Yup.string()
+    .matches(
+      /^[A-Za-zÀ-ÿ\s]+$/,
+      "Last name can only contain letters and spaces"
+    )
+    .required("Please provide your last name"),
   email: Yup.string()
     .email("Please enter a valid email address")
     .required("This field is required"),

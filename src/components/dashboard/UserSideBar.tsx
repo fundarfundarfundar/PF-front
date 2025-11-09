@@ -1,26 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  FolderKanban,
-  Users,
-  Settings,
-  HandCoins,
-} from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
 import Loading from "../common/Loading";
+import { usePathname } from "next/navigation";
+import { LayoutDashboard, HandCoins } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const links = [
-  { href: "/dashboard/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/dashboard/admin/projects", label: "Projects", icon: FolderKanban },
-  { href: "/dashboard/admin/donations", label: "Donations", icon: HandCoins },
-  { href: "/dashboard/admin/users", label: "Users", icon: Users },
-  { href: "/dashboard/admin/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard/profile", label: "My Account", icon: LayoutDashboard },
+
+  {
+    href: "/dashboard/profile/donations",
+    label: "My Donations",
+    icon: HandCoins,
+  },
 ];
 
-export default function Sidebar() {
+export default function UserSidebar() {
   const { dataUser, isLoading } = useAuth();
   const pathname = usePathname();
 
@@ -31,8 +27,10 @@ export default function Sidebar() {
   ) : (
     <aside className="w-64 bg-gray-strong shadow-md p-6 hidden lg:flex flex-col justify-between">
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-white-smoke">
-          {` Hola ${dataUser?.user.name}`}
+        <h2 className="text-2xl font-bold text-white-smoke capitalize">
+          {` Hola ${
+            dataUser?.user.firstName?.split(" ")[0] || dataUser?.user.role
+          }`}
         </h2>
         <nav className="flex flex-col gap-3">
           {links.map(({ href, label, icon: Icon }) => {

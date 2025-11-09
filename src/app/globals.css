@@ -51,7 +51,7 @@ body {
 }
 
 .form-input {
-  @apply p-3 border border-gray-500 rounded-md;
+  @apply p-3 border border-gray-medium rounded-md;
 }
 
 .form-input-sec {

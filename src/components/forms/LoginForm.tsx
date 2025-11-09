@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   ILoginFormValues,
   loginInitialValues,
@@ -11,7 +12,6 @@ import { useFormik } from "formik";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import Link from "next/link";
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
 

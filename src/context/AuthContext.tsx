@@ -11,6 +11,7 @@ interface AuthContextProps {
   setDataUser: (dataUser: IUserSession | null) => void;
   logout: () => void;
   isLoading: boolean;
+  updateUserProfile: (updatedData: Partial<IUserSession["user"]>) => void;
 }
 
 //Esto si es la creacion del context y la definicion de sus valores iniciales
@@ -19,9 +20,10 @@ const AuthContext = createContext<AuthContextProps>({
   setDataUser: () => {},
   logout: () => {},
   isLoading: true,
+  updateUserProfile: () => {},
 });
 
-//Defino Interfaz de AuthProvider
+//Interfaz del AuthProvider
 interface AuthProviderProps {
   children: React.ReactElement;
 }
@@ -33,6 +35,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   //Lógica que controlaré con useEffect (1 o 2 )
+  // Guarda cambios en localStorage cuando cambia el usuario
   useEffect(() => {
     if (dataUser) {
       localStorage.setItem("userSession", JSON.stringify(dataUser));
@@ -60,8 +63,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     router.push(PATHROUTES.HOME);
   };
+
+  // Actualiza la data del usuario logueado y sincroniza el storage
+  const updateUserProfile = (updatedData: Partial<IUserSession["user"]>) => {
+    if (!dataUser) return;
+
+    const newUserSession: IUserSession = {
+      ...dataUser,
+      user: {
+        ...dataUser.user,
+        ...updatedData,
+        imageUrl: updatedData.imageUrl ?? dataUser.user.imageUrl, // sobrescribe solo lo que cambió
+      },
+    };
+
+    setDataUser(newUserSession);
+    localStorage.setItem("userSession", JSON.stringify(newUserSession));
+  };
+
   return (
-    <AuthContext.Provider value={{ dataUser, setDataUser, logout, isLoading }}>
+    <AuthContext.Provider
+      value={{ dataUser, setDataUser, logout, isLoading, updateUserProfile }}
+    >
       {children}
     </AuthContext.Provider>
   );

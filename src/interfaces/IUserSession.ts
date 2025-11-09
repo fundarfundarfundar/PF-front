@@ -1,8 +1,14 @@
 export interface IUserSession {
   token: string;
-  user: {
-    email: string;
-    id: string;
-    role: "admin" | "user";
-  };
+  user: IUserData;
+}
+
+export interface IUserData {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  imageUrl: string | null;
+  country: string;
+  role: "admin" | "user";
 }
