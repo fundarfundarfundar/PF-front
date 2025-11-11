@@ -58,8 +58,7 @@ export default function ProfileImageUploader() {
             <Image
               src={preview}
               alt="Profile photo"
-              width={120}
-              height={120}
+              fill
               className="object-cover rounded-full"
             />
           ) : (

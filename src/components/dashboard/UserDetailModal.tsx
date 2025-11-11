@@ -1,0 +1,129 @@
+import Modal from "@/components/common/Modal";
+import Loading from "../common/Loading";
+import Image from "next/image";
+import { IUser } from "@/interfaces/IUser";
+import { getUserById } from "@/services/user.services";
+import { useEffect, useState } from "react";
+import { deleteUser } from "@/services/user.services";
+import { toast } from "sonner";
+import { useUsers } from "@/context/UserContext";
+import { FaUserCircle } from "react-icons/fa"; // 👈 Ícono de usuario por defecto
+
+interface UserDetailModalProps {
+  userId: string;
+  onClose: () => void;
+}
+
+export default function UserDetailModal({
+  userId,
+  onClose,
+}: UserDetailModalProps) {
+  const [user, setUser] = useState<IUser | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { refreshUsers } = useUsers();
+
+  const handleDelete = async () => {
+    if (!userId) return;
+
+    const confirm = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (!confirm) return;
+
+    try {
+      await deleteUser(userId);
+      toast.success("User deleted succesfully");
+      refreshUsers();
+      onClose();
+    } catch (err) {
+      console.error("Error deleting user:", err);
+      toast.error("Failed to delete user");
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getUserById(userId);
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [userId]);
+
+  return (
+    <Modal
+      isOpen
+      title="User Information"
+      onClose={onClose}
+      className="text-center"
+    >
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="flex flex-col gap-15 items-center justify-center pt-3">
+          <div className="flex flex-col px-10">
+            <div className="flex gap-15 items-center px-3">
+              {user?.imageUrl ? (
+                <div className="relative h-50 w-50 rounded-full overflow-hidden">
+                  <Image
+                    src={user.imageUrl}
+                    alt="Profile image"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-50 w-50 rounded-full bg-gray-soft">
+                  <FaUserCircle className="text-gray-strong w-full h-full" />
+                </div>
+              )}
+
+              <div className="flex flex-col gap-2">
+                <p>
+                  <strong>Name</strong>
+                  <div>
+                    {user?.firstName} {user?.lastName}
+                  </div>
+                </p>
+                <p>
+                  <strong>Email</strong>
+                  <p>{user?.email}</p>
+                </p>
+
+                {user?.country ? (
+                  <p>
+                    <strong>Country</strong>
+                    <p>{user?.country} </p>
+                  </p>
+                ) : null}
+                <p>
+                  <strong>Role</strong>
+                  <p>{user?.role}</p>
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-5 justify-end mt-5 mb-2">
+              <button
+                onClick={onClose}
+                className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-200 cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 bg-red-600 text-white-smoke rounded-md hover:bg-red-400 cursor-pointer"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </Modal>
+  );
+}
