@@ -1,7 +1,7 @@
 import { IDonation } from "./IDonation";
 
 export interface IUser {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;

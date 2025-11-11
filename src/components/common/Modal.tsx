@@ -3,8 +3,9 @@
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title?: string;
+  title: string;
   children: React.ReactNode;
+  className?: string;
 }
 
 export default function Modal({
@@ -12,6 +13,7 @@ export default function Modal({
   onClose,
   title,
   children,
+  className,
 }: ModalProps) {
   if (!isOpen) return null;
 
@@ -25,7 +27,11 @@ export default function Modal({
         onClick={(e) => e.stopPropagation()}
       >
         {title && (
-          <h2 className="text-lg font-semibold text-gray-strong mb-4">
+          <h2
+            className={`text-lg font-semibold text-gray-strong mb-4 ${
+              className ?? ""
+            }`}
+          >
             {title}
           </h2>
         )}
