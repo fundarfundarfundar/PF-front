@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/AuthContext";
 import { ProjectsProvider } from "@/context/ProjetsContext";
 import { UserProvider } from "@/context/UserContext";
+import Script from "next/script";
 
 const proximaNova = Poppins({
   variable: "--font-proxima",
@@ -48,6 +49,8 @@ export default function RootLayout({
             </ProjectsProvider>
           </AuthProvider>
         </UserProvider>
+        <Script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js" strategy="afterInteractive" />
+        <Script src="https://files.bpcontent.cloud/2025/11/15/12/20251115122210-QHPGSF6Q.js" strategy="afterInteractive" />
       </body>
     </html>
   );
