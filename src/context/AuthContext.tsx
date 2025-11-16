@@ -60,6 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (typeof window !== "undefined" && window.localStorage) {
       localStorage.removeItem("userSession");
       localStorage.removeItem("token");
+      document.cookie = "user=; path=/; max-age=0";
     }
     router.push(PATHROUTES.HOME);
   };

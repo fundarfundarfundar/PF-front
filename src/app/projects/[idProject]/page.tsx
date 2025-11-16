@@ -1,18 +1,23 @@
 "use client";
 
+import Image from "next/image";
+import BackButton from "@/components/common/BackButton.";
+import PaymentModal from "@/components/projects/PaymentModal";
 import { notFound, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IProject } from "@/interfaces/IProject";
 import { H2, P1, TitleProject } from "@/components/common/Typography";
 import { GoArrowRight } from "react-icons/go";
 import { getProjectById } from "@/services/project.services";
-import BackButton from "@/components/common/BackButton.";
-import Image from "next/image";
 
 export default function ProjectDetailPage() {
   const params = useParams();
-  const projectId = params.idProject;
+  const projectId = params.idProject as string;
+
   const [projectData, setProjectData] = useState<IProject | null>(null);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchProjectById = async () => {
@@ -57,7 +62,11 @@ export default function ProjectDetailPage() {
             </TitleProject>
             <P1>{`${projectData.resume}`}</P1>
 
-            <button type="button" className="btn-primary mt-7 self-start">
+            <button
+              type="button"
+              onClick={() => setSelectedProjectId(projectId)}
+              className="btn-primary mt-7 self-start"
+            >
               DONATE
             </button>
           </div>
@@ -123,6 +132,13 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </div>
+
+      {selectedProjectId && (
+        <PaymentModal
+          projectId={selectedProjectId}
+          onClose={() => setSelectedProjectId(null)}
+        />
+      )}
     </section>
   );
 }

@@ -20,6 +20,9 @@ export const loginUser = async (userData: ILoginFormValues) => {
     }
     const data = await response.json();
 
+    // Crear cookie para el middleware
+    document.cookie = `token=${data.result.access_token}; Path=/; Max-Age=86400; SameSite=Lax`;
+
     return {
       success: true,
       message: data.message,
