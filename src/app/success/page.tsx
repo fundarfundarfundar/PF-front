@@ -9,8 +9,9 @@ import { PATHROUTES } from "@/helpers/NavItems";
 import { createDonation } from "@/services/payment.services";
 
 export default function Success() {
-  const { dataUser } = useAuth();
   const router = useRouter();
+  const { dataUser } = useAuth();
+  const token = dataUser?.token ?? "";
 
   const [isSaving, setIsSaving] = useState(true);
   const [amount, setAmount] = useState(0);
@@ -29,7 +30,7 @@ export default function Success() {
       setAmount(amount);
 
       try {
-        await createDonation(amount, userId, projectId);
+        await createDonation(token, amount, userId, projectId);
       } catch (err) {
         console.error("Error saving donation:", err);
       } finally {
@@ -39,10 +40,10 @@ export default function Success() {
     };
 
     saveDonation();
-  }, []);
+  }, [token]);
 
   return (
-    <section className="bg-[url('/images/shared/collageRegister2.jpg')] h-[80vh] bg-cover">
+    <section className="bg-[url('/images/shared/collageRegister.webp')] h-[80vh] bg-cover">
       <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
         <div className="bg-white-smoke rounded-2xl py-15 px-10 flex flex-col gap-7">
           <div className="flex flex-col gap-2 items-center">

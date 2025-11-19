@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import { deleteUser } from "@/services/user.services";
 import { toast } from "sonner";
 import { useUsers } from "@/context/UserContext";
-import { FaUserCircle } from "react-icons/fa"; // 👈 Ícono de usuario por defecto
+import { FaUserCircle } from "react-icons/fa";
+import { useAuth } from "@/context/AuthContext";
 
 interface UserDetailModalProps {
   userId: string;
@@ -21,6 +22,8 @@ export default function UserDetailModal({
   const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
   const { refreshUsers } = useUsers();
+  const { dataUser } = useAuth();
+  const token = dataUser?.token ?? "";
 
   const handleDelete = async () => {
     if (!userId) return;
@@ -31,7 +34,7 @@ export default function UserDetailModal({
     if (!confirm) return;
 
     try {
-      await deleteUser(userId);
+      await deleteUser(token, userId);
       toast.success("User deleted succesfully");
       refreshUsers();
       onClose();
@@ -44,7 +47,7 @@ export default function UserDetailModal({
   useEffect(() => {
     (async () => {
       try {
-        const data = await getUserById(userId);
+        const data = await getUserById(token, userId);
         setUser(data);
       } catch (err) {
         console.error(err);
@@ -52,7 +55,7 @@ export default function UserDetailModal({
         setLoading(false);
       }
     })();
-  }, [userId]);
+  }, [userId, token]);
 
   return (
     <Modal

@@ -4,6 +4,7 @@ import { FaUser } from "react-icons/fa6";
 import { updateUserRole } from "@/services/user.services";
 import { toast } from "sonner";
 import { useUsers } from "@/context/UserContext";
+import { useAuth } from "@/context/AuthContext";
 
 interface UserCardProps {
   user: IUser;
@@ -12,6 +13,8 @@ interface UserCardProps {
 
 export default function UserCard({ user, onClick }: UserCardProps) {
   const { refreshUsers } = useUsers();
+  const { dataUser } = useAuth();
+  const token = dataUser?.token ?? "";
 
   const handleToggleRole = async (
     userId: string,
@@ -24,7 +27,7 @@ export default function UserCard({ user, onClick }: UserCardProps) {
     if (!confirm) return;
 
     try {
-      await updateUserRole(userId, newRole);
+      await updateUserRole(token, userId, newRole);
       toast.success(`User role updated to ${newRole}`);
       await refreshUsers();
     } catch {

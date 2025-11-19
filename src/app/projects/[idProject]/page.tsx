@@ -13,6 +13,7 @@ import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/NavItems";
+import Loading from "@/components/common/Loading";
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -24,6 +25,7 @@ export default function ProjectDetailPage() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleDonate = () => {
     if (!dataUser) {
@@ -37,15 +39,20 @@ export default function ProjectDetailPage() {
   useEffect(() => {
     const fetchProjectById = async () => {
       try {
+        setIsLoading(true);
         const project = await getProjectById(projectId as string);
         if (!project) return notFound();
         setProjectData(project);
       } catch (err) {
         console.error("Error obterniendo el producto", err);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchProjectById();
   }, [projectId]);
+
+  if (isLoading) return <Loading />;
 
   if (!projectData) {
     return <p className="text-center py-20">Cargando proyecto...</p>;

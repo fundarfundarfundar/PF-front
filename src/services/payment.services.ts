@@ -5,6 +5,7 @@ interface PaymentSessionResponse {
 }
 
 export const createPaymentSession = async (
+  token: string,
   projectId: string,
   userId: string,
   amount: number
@@ -14,6 +15,7 @@ export const createPaymentSession = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ projectId, userId, amount }),
     });
@@ -30,6 +32,7 @@ export const createPaymentSession = async (
 };
 
 export const createDonation = async (
+  token: string,
   amount: number,
   userId: string,
   projectId: string
@@ -39,6 +42,7 @@ export const createDonation = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         amount,
