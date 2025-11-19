@@ -37,10 +37,10 @@ export default function ProjectForm({ project, onClose }: ProjectFormProps) {
         const uploadedUrls = await Promise.all(
           values.imageUrls.map(async (img: File | string) => {
             if (img instanceof File) {
-              const url = await uploadSingleImage(img, token); // ya no necesita uuid
+              const url = await uploadSingleImage(img, token);
               return url;
             }
-            return img; // si ya es string (caso edición)
+            return img;
           })
         );
         // 2️⃣ Crear objeto del nuevo proyecto

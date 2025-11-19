@@ -15,6 +15,7 @@ export default function PaymentModal({
   onClose,
 }: PaymentModalProps) {
   const { dataUser } = useAuth();
+  const token = dataUser?.token ?? "";
 
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
@@ -40,6 +41,7 @@ export default function PaymentModal({
       );
 
       const sessionUrl = await createPaymentSession(
+        token,
         projectId,
         dataUser?.user.id as string,
         amount

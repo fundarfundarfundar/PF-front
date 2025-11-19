@@ -24,10 +24,13 @@ export const getAllUsers = async (token: string) => {
   }
 };
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (token: string, userId: string) => {
   try {
     const res = await fetch(`${apiURL}/users/${userId}`, {
       method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!res.ok) throw new Error("Error fetching user by id");
     const userInfo = res.json();
@@ -64,10 +67,13 @@ export const updateUser = async (
   }
 };
 
-export const deleteUser = async (idUser: string) => {
+export const deleteUser = async (token: string, idUser: string) => {
   try {
     const res = await fetch(`${apiURL}/users/${idUser}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!res.ok) {
       const errorText = await res.text();
@@ -82,13 +88,17 @@ export const deleteUser = async (idUser: string) => {
 };
 
 export const updateUserRole = async (
+  token: string,
   idUser: string,
   role: "admin" | "user"
 ) => {
   try {
     const res = await fetch(`${apiURL}/users/${idUser}/role`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ role }),
     });
     if (!res.ok) throw new Error("Error updating user role");

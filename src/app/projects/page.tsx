@@ -3,12 +3,14 @@
 import ProjectCard from "@/components/projects/ProjectCard";
 import Pagination from "@/components/projects/Pagination";
 import CountryFilter from "@/components/projects/CountryFilter";
+import Loading from "@/components/common/Loading";
 import { useEffect, useState } from "react";
 import { getAllProjects } from "@/services/project.services";
 import { IProject } from "@/interfaces/IProject";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<IProject[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [country, setCountry] = useState("");
   const [countries, setCountries] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,6 +19,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        setIsLoading(true);
         const allProjects = await getAllProjects();
         setProjects(allProjects);
 
@@ -26,6 +29,8 @@ export default function ProjectsPage() {
         setCountries(uniqueCountries);
       } catch (err) {
         console.error("Error trayendo proyectos", err);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchProjects();
@@ -50,10 +55,11 @@ export default function ProjectsPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  if (isLoading) return <Loading />;
   return (
     <section>
       <div className="relative  lg:pb-10 bg-white-smoke bg-opacity-40 backdrop-blur-2xl pt-7">
-        <div className="absolute inset-0 bg-black/30 z-0"></div>
+        <div className="absolute inset-0 bg-black/40 z-0"></div>
         <div className="relative z-10">
           <div className="lg:px-12 pb-7">
             <CountryFilter
