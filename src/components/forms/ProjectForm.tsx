@@ -54,7 +54,7 @@ export default function ProjectForm({ project, onClose }: ProjectFormProps) {
         };
         // 3️⃣ Enviar al backend
         if (project?.id) {
-          await updateProject(project.id, newProject, token);
+          await updateProject(token, project.id, newProject);
           toast.success("Project updated succesfully");
         } else {
           await addProject(newProject, token);
