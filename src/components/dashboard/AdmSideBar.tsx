@@ -7,17 +7,17 @@ import {
   LayoutDashboard,
   FolderKanban,
   Users,
-  Settings,
-  HandCoins,
+  UserCog,
+  // HandCoins,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 const links = [
   { href: "/dashboard/admin", label: "Overview", icon: LayoutDashboard },
   { href: "/dashboard/admin/projects", label: "Projects", icon: FolderKanban },
-  { href: "/dashboard/admin/donations", label: "Donations", icon: HandCoins },
+  // { href: "/dashboard/admin/donations", label: "Donations", icon: HandCoins },
   { href: "/dashboard/admin/users", label: "Users", icon: Users },
-  { href: "/dashboard/admin/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard/admin/account", label: "Account", icon: UserCog },
 ];
 
 export default function AdmSidebar() {

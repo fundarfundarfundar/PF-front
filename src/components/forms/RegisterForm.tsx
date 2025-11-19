@@ -25,7 +25,7 @@ export default function RegisterForm() {
         toast.success("User registered successfully");
         router.push(PATHROUTES.LOGIN);
       } else {
-        toast.error("Registration failed");
+        toast.error(response.message || "Registration failed");
       }
       resetForm();
     },
@@ -49,14 +49,8 @@ export default function RegisterForm() {
             value={formik.values.firstName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="p-3 border border-gray-500 border-r-0 rounded-l-md"
+            className="p-3 border border-gray-500 border-r-0 rounded-l-md w-1/2"
           />
-          {formik.errors.firstName && formik.touched.firstName ? (
-            <p id="firstName-errors" className="text-red-500">
-              {formik.errors.firstName}
-            </p>
-          ) : null}
-
           <input
             id="lastName"
             type="text"
@@ -65,8 +59,15 @@ export default function RegisterForm() {
             value={formik.values.lastName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="p-3 border border-gray-500 rounded-r-md"
+            className="p-3 border border-gray-500 rounded-r-md w-1/2"
           />
+        </div>
+        <div className="flex gap-3">
+          {formik.errors.firstName && formik.touched.firstName ? (
+            <p id="firstName-errors" className="text-red-500">
+              {formik.errors.firstName}
+            </p>
+          ) : null}
           {formik.errors.lastName && formik.touched.lastName ? (
             <p id="lastName-errors" className="text-red-500">
               {formik.errors.lastName}

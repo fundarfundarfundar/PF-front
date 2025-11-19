@@ -23,7 +23,7 @@ export default function Banner() {
       </div>
 
       <div
-        className={`flex-1 lg:w-[60%] bg-cover bg-center w-full lg:h-auto h-[42svh] bg-[url("/images/desktop/bannerFundar.jpg")]`}
+        className={`flex-1 lg:w-[60%] bg-cover bg-center w-full lg:h-auto h-[42svh] bg-[url("/images/desktop/bannerFundar.webp")]`}
       ></div>
     </section>
   );

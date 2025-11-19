@@ -48,7 +48,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   //Lógica que controlaré con useEffect (1 o 2 )
   useEffect(() => {
     refreshUsers();
-  }, [allUsers]);
+  }, []);
   return (
     <UsersContext.Provider
       value={{ allUsers, totalUsers, refreshUsers, loading }}

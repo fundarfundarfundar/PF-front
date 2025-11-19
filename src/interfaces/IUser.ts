@@ -1,5 +1,3 @@
-import { IDonation } from "./IDonation";
-
 export interface IUser {
   id: string;
   firstName: string;
@@ -10,7 +8,14 @@ export interface IUser {
   phone?: string;
   birthDate?: string | Date;
   address?: string;
-  donations?: IDonation[];
   imageUrl?: string;
   role: "admin" | "user";
+  donations: IUserDonation[];
+}
+
+export interface IUserDonation {
+  id: string;
+  amount: number;
+  date: string;
+  paymentMethod: string;
 }

@@ -5,7 +5,7 @@ export default function Login() {
   return (
     <section className="relative bg-gray-strong h-screen bg-covr">
       <div className="flex flex-col lg:flex-row justify-center items-center min-h-screen ">
-        <div className="lg:bg-[url('/images/shared/imageLogin.jpg')] lg:bg-cover lg:w-1/2 lg:h-screen "></div>
+        <div className="lg:bg-[url('/images/shared/imageLogin.webp')] lg:bg-cover lg:w-1/2 lg:h-screen "></div>
         <div className="absolute inset-0 bg-black/20 z-0"></div>
 
         <div className="lg:w-1/2 flex flex-col justify-center place-items-center h-screen z-10">
