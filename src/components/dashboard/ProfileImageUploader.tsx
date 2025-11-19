@@ -10,6 +10,7 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function ProfileImageUploader() {
   const { dataUser, setDataUser } = useAuth();
+  const token = dataUser?.token ?? "";
 
   const [preview, setPreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -31,7 +32,11 @@ export default function ProfileImageUploader() {
 
     try {
       setIsUploading(true);
-      const newImageUrl = await uploadProfileImage(file, dataUser?.user.id);
+      const newImageUrl = await uploadProfileImage(
+        file,
+        dataUser?.user.id,
+        token
+      );
       const updatedUser = {
         ...dataUser,
         user: { ...dataUser.user, imageUrl: newImageUrl },

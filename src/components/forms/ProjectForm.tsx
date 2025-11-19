@@ -11,6 +11,7 @@ import {
 import { useFormik } from "formik";
 import { toast } from "sonner";
 import { useProjects } from "@/context/ProjetsContext";
+import { useAuth } from "@/context/AuthContext";
 
 interface ProjectFormProps {
   project?: IProject | null;
@@ -20,6 +21,8 @@ interface ProjectFormProps {
 
 export default function ProjectForm({ project, onClose }: ProjectFormProps) {
   const { refreshProjects } = useProjects();
+  const { dataUser } = useAuth();
+  const token = dataUser?.token ?? "";
 
   const formik = useFormik<IProjectFormValues>({
     initialValues: project || projectFormInitialValues,
@@ -34,7 +37,7 @@ export default function ProjectForm({ project, onClose }: ProjectFormProps) {
         const uploadedUrls = await Promise.all(
           values.imageUrls.map(async (img: File | string) => {
             if (img instanceof File) {
-              const url = await uploadSingleImage(img); // ya no necesita uuid
+              const url = await uploadSingleImage(img, token); // ya no necesita uuid
               return url;
             }
             return img; // si ya es string (caso edición)
@@ -51,10 +54,10 @@ export default function ProjectForm({ project, onClose }: ProjectFormProps) {
         };
         // 3️⃣ Enviar al backend
         if (project?.id) {
-          await updateProject(project.id, newProject);
+          await updateProject(project.id, newProject, token);
           toast.success("Project updated succesfully");
         } else {
-          await addProject(newProject);
+          await addProject(newProject, token);
           toast.success("Project created successfully");
         }
         await refreshProjects();
@@ -214,7 +217,7 @@ export default function ProjectForm({ project, onClose }: ProjectFormProps) {
                         // Mostrar un preview rápido mientras sube
                         formik.setFieldValue(`imageUrls[${index}]`, file);
                         // Subir al backend inmediatamente
-                        const url = await uploadSingleImage(file);
+                        const url = await uploadSingleImage(file, token);
                         // Reemplazar el File por la URL definitiva
                         formik.setFieldValue(`imageUrls[${index}]`, url);
                       } catch (err) {
@@ -258,33 +261,6 @@ export default function ProjectForm({ project, onClose }: ProjectFormProps) {
             ))}
           </div>
         </div>
-
-        {/* <label
-          htmlFor="categoryId"
-          className="form-label-sec mb-1.5"
-        >
-          Category
-        </label>
-        <select
-          id="categoryId"
-          name="categoryId"
-          // value={formik.values.categoryId}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className="form-input-sec"
-        >
-          <option value="">Select a category</option>
-          <option value={"1"}>Education</option>
-          <option value={"2"}>Nutrition</option>
-          <option value={"3"}>Community Infrastructure</option>
-          <option value={"4"}>Environment</option>
-          <option value={"5"}>Health</option>
-        </select> */}
-        {/* {formik.errors.categoryId && formik.touched.categoryId && (
-        <p className="text-red-500 mt-1.5">{formik.errors.categoryId}</p>
-      )} */}
-        {/* </div>
-        </div> */}
 
         <div className="flex justify-end gap-3 mt-6">
           <button

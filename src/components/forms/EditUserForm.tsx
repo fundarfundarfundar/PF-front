@@ -15,6 +15,7 @@ interface IEditUserForm {
 
 export default function EditUserForm({ onClose }: IEditUserForm) {
   const { dataUser, updateUserProfile } = useAuth();
+  const token = dataUser?.token ?? "";
 
   const formik = useFormik<IEditUserFormValues>({
     initialValues: {
@@ -29,7 +30,11 @@ export default function EditUserForm({ onClose }: IEditUserForm) {
 
     onSubmit: async (values) => {
       try {
-        const response = await updateUser(dataUser?.user.id as string, values);
+        const response = await updateUser(
+          dataUser?.user.id as string,
+          values,
+          token
+        );
 
         if (!response) {
           toast.error("Error updating user");

@@ -4,6 +4,7 @@ import { IProject } from "@/interfaces/IProject";
 import { getAllProjects, updateProject } from "@/services/project.services";
 import { IProjectFormValues } from "@/validators/addProjectSchema";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
 
 //Defino Interfaz que define los valores
 interface ProjectsContextProps {
@@ -37,6 +38,9 @@ interface ProjectsProviderProps {
 export const ProjectsProvider: React.FC<ProjectsProviderProps> = ({
   children,
 }) => {
+  const { dataUser } = useAuth();
+  const token = dataUser?.token ?? "";
+
   const [projects, setProjects] = useState<IProject[]>([]);
 
   const refreshProjects = async () => {
@@ -62,7 +66,7 @@ export const ProjectsProvider: React.FC<ProjectsProviderProps> = ({
     idProject: string,
     projectData: IProjectFormValues
   ) => {
-    const updated = await updateProject(idProject, projectData);
+    const updated = await updateProject(token, idProject, projectData);
     setProjects((prev) =>
       prev.map((project) => (project.id === updated.id ? updated : project))
     );

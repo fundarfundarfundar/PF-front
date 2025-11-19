@@ -1,12 +1,15 @@
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
-export const uploadSingleImage = async (file: File) => {
+export const uploadSingleImage = async (file: File, token: string) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
 
     const response = await fetch(`${apiURL}/files/uploadTempImage`, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     });
     if (!response.ok) {
@@ -23,7 +26,8 @@ export const uploadSingleImage = async (file: File) => {
 
 export const uploadProfileImage = async (
   file: File,
-  uuid: string
+  uuid: string,
+  token: string
 ): Promise<string> => {
   try {
     const formData = new FormData();
@@ -32,6 +36,9 @@ export const uploadProfileImage = async (
 
     const response = await fetch(`${apiURL}/files/uploadImage`, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     });
 
