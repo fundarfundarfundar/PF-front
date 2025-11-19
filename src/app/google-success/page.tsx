@@ -33,7 +33,7 @@ export default function GoogleSuccessPage() {
 
     const fetchUser = async () => {
       try {
-        const userFull = await getUserById(decoded.id);
+        const userFull = await getUserById(token, decoded.id);
         const userSession = {
           token,
           user: userFull,
