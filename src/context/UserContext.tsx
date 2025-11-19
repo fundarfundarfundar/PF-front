@@ -3,6 +3,7 @@
 import { IUser } from "@/interfaces/IUser";
 import { getAllUsers } from "@/services/user.services";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
 
 //Defino Interfaz que define los valores
 interface UserContextProps {
@@ -27,6 +28,9 @@ interface UserProviderProps {
 
 //Crear nuestro componente de UserProvider, encargado de manejar estados, etc
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+  const { dataUser } = useAuth();
+  const token = dataUser?.token ?? "";
+
   const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +38,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const refreshUsers = async () => {
     try {
       setLoading(true);
-      const users = await getAllUsers();
+      const users = await getAllUsers(token);
       setAllUsers(users);
     } catch (err) {
       console.error("Error fetching:", err);
@@ -47,8 +51,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   //Lógica que controlaré con useEffect (1 o 2 )
   useEffect(() => {
-    refreshUsers();
-  }, []);
+    if (dataUser?.token) {
+      refreshUsers();
+    }
+  }, [dataUser]);
   return (
     <UsersContext.Provider
       value={{ allUsers, totalUsers, refreshUsers, loading }}

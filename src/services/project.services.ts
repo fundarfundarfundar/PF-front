@@ -31,11 +31,17 @@ export const getProjectById = async (idByParam: string) => {
   }
 };
 
-export const addProject = async (projectData: IProjectFormValues) => {
+export const addProject = async (
+  projectData: IProjectFormValues,
+  token: string
+) => {
   try {
     const res = await fetch(`${apiURL}/projects`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(projectData),
     });
     const project = await res.json();
@@ -45,10 +51,13 @@ export const addProject = async (projectData: IProjectFormValues) => {
   }
 };
 
-export const deleteProject = async (idProject: string) => {
+export const deleteProject = async (idProject: string, token: string) => {
   try {
     const res = await fetch(`${apiURL}/projects/${idProject}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!res.ok) {
       throw new Error(`Error al elminiar el proyecto con id ${idProject}`);
@@ -60,13 +69,17 @@ export const deleteProject = async (idProject: string) => {
 };
 
 export const updateProject = async (
+  token: string,
   idProject: string,
   projectData: IProjectFormValues
 ) => {
   try {
     const res = await fetch(`${apiURL}/projects/${idProject}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(projectData),
     });
 

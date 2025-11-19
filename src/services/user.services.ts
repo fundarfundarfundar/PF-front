@@ -3,10 +3,14 @@ import { IEditUserFormValues } from "@/validators/editUserSchema";
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (token: string) => {
   try {
     const res = await fetch(`${apiURL}/users`, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!res.ok) {
       const errMsg = await res.text();
@@ -36,12 +40,16 @@ export const getUserById = async (userId: string) => {
 
 export const updateUser = async (
   idUser: string,
-  userData: IEditUserFormValues
+  userData: IEditUserFormValues,
+  token: string
 ) => {
   try {
     const res = await fetch(`${apiURL}/users/${idUser}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(userData),
     });
     if (!res.ok) {

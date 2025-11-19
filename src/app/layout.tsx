@@ -38,8 +38,8 @@ export default function RootLayout({
     >
       <body className="flex flex-col min-h-screen">
         <Toaster position="bottom-right" richColors />
-        <UserProvider>
-          <AuthProvider>
+        <AuthProvider>
+          <UserProvider>
             <ProjectsProvider>
               <>
                 <Navbar />
@@ -47,10 +47,16 @@ export default function RootLayout({
                 <Footer />
               </>
             </ProjectsProvider>
-          </AuthProvider>
-        </UserProvider>
-        <Script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js" strategy="afterInteractive" />
-        <Script src="https://files.bpcontent.cloud/2025/11/15/12/20251115122210-QHPGSF6Q.js" strategy="afterInteractive" />
+          </UserProvider>
+        </AuthProvider>
+        <Script
+          src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://files.bpcontent.cloud/2025/11/15/12/20251115122210-QHPGSF6Q.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
