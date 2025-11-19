@@ -3,31 +3,35 @@ import { IUser } from "@/interfaces/IUser";
 import { FaUser } from "react-icons/fa6";
 import { updateUserRole } from "@/services/user.services";
 import { toast } from "sonner";
+import { useUsers } from "@/context/UserContext";
 
 interface UserCardProps {
   user: IUser;
   onClick: () => void;
 }
 
-const handleToggleRole = async (
-  userId: string,
-  currentRole: "admin" | "user"
-) => {
-  const newRole = currentRole === "admin" ? "user" : "admin";
-  const confirm = window.confirm(
-    "Are you sure you want to change this role user?"
-  );
-  if (!confirm) return;
-
-  try {
-    await updateUserRole(userId, newRole);
-    toast.success(`User role updated to ${newRole}`);
-  } catch {
-    toast.error("Error updating user role");
-  }
-};
-
 export default function UserCard({ user, onClick }: UserCardProps) {
+  const { refreshUsers } = useUsers();
+
+  const handleToggleRole = async (
+    userId: string,
+    currentRole: "admin" | "user"
+  ) => {
+    const newRole = currentRole === "admin" ? "user" : "admin";
+    const confirm = window.confirm(
+      "Are you sure you want to change this role user?"
+    );
+    if (!confirm) return;
+
+    try {
+      await updateUserRole(userId, newRole);
+      toast.success(`User role updated to ${newRole}`);
+      await refreshUsers();
+    } catch {
+      toast.error("Error updating user role");
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between p-3 bg-white-smoke rounded-lg shadow hover:shadow-md transition">
@@ -51,7 +55,7 @@ export default function UserCard({ user, onClick }: UserCardProps) {
             <button
               type="button"
               onClick={onClick}
-              className="font-medium text-gray-strong cursor-pointer"
+              className="font-medium text-gray-strong cursor-pointer flex flex-col items-baseline"
             >
               {user.firstName ? user.firstName.split(" ")[0] : ""}{" "}
               {user.lastName ?? ""}

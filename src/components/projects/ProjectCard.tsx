@@ -1,6 +1,5 @@
 import { IProject } from "@/interfaces/IProject";
-import { P1, TitleProject } from "../common/Typography";
-// import { getCategoryNameById } from "@/helpers/categories";
+import { P3, TitleProject } from "../common/Typography";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,31 +20,26 @@ export default function ProjectCard({ project }: CardProps) {
   return (
     <section
       key={project.title}
-      className="flex flex-col gap-10 lg:flex lg:flex-row lg:gap-40 py-15 even:lg:flex-row-reverse"
+      className="group flex flex-col lg:flex lg:flex-row   even:lg:flex-row-reverse odd:bg-black-medium even:bg-white-smoke"
     >
-      <div className="lg:w-1/2">
+      <div className="lg:w-[60%]">
         <Image
           src={project.imageUrls[0]}
           alt={`Imagen de ${project.title}`}
-          width={1400}
-          height={1400}
-          className="rounded-xl h-[500px]"
+          width={1000}
+          height={1000}
+          className="h-[600px] w-full object-cover"
         />
       </div>
 
-      <div className="flex flex-col justify-center gap-5 place-items-center lg:place-items-start lg:w-1/2">
-        <TitleProject className="font-extrabold leading-13">
+      <div className="flex flex-col justify-center gap-5 place-items-center lg:place-items-start lg:w-[40%] lg:px-12">
+        <TitleProject className="font-extrabold leading-13 group-odd:text-white-strong text-black-medium">
           {firstPart}
           <br />
           {lastWord}
         </TitleProject>
-        <P1 className="text-black-medium lg:w-130">{project.resume}</P1>
-        <Link
-          // href={`/projects/${getCategoryNameById(project.categoryId)}/${
-          //   project.id
-          // }`}
-          href={`/projects/${project.id}`}
-        >
+        <P3 className="group-even:text-gray-strong">{project.resume}</P3>
+        <Link href={`/projects/${project.id}`}>
           <button className="btn-primary mt-7">SEE MORE</button>
         </Link>
       </div>

@@ -10,6 +10,7 @@ interface ProjectsContextProps {
   allProjects: IProject[];
   totalProjects: number;
   activeProjects: number;
+  totalAmountProjects: number;
   refreshProjects: () => Promise<void>;
   editProject: (
     idProject: string,
@@ -22,6 +23,7 @@ const ProjectsContext = createContext<ProjectsContextProps>({
   allProjects: [],
   totalProjects: 0,
   activeProjects: 0,
+  totalAmountProjects: 0,
   refreshProjects: async () => {},
   editProject: async () => {},
 });
@@ -66,12 +68,18 @@ export const ProjectsProvider: React.FC<ProjectsProviderProps> = ({
     );
   };
 
+  const totalAmountProjects = projects.reduce(
+    (acc, project) => acc + (project.currentAmount || 0),
+    0
+  );
+
   return (
     <ProjectsContext.Provider
       value={{
         allProjects: projects,
         totalProjects,
         activeProjects,
+        totalAmountProjects,
         refreshProjects,
         editProject,
       }}

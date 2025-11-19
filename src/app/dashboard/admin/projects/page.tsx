@@ -29,6 +29,7 @@ export default function ProjectsPage() {
         </button>
       </div>
       <ProjectTable />
+
       {isModalOpen && (
         <ProjectModal
           project={null}

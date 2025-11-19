@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import DeleteButton from "@/components/common/DeleteButton";
 import EditButton from "@/components/common/EditButton";
 import ProjectModal from "./ProjectModal";
@@ -7,6 +6,7 @@ import { IProject } from "@/interfaces/IProject";
 import { deleteProject } from "@/services/project.services";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { IProjectFormValues } from "@/validators/addProjectSchema";
 
 export default function ProjectTable() {
   const { allProjects, editProject, refreshProjects } = useProjects();
@@ -33,14 +33,18 @@ export default function ProjectTable() {
     setIsModalOpen(true);
   };
 
-  const handleSave = async (data: any) => {
+  const handleSave = async (data: IProjectFormValues) => {
     if (!selectedProject) return;
+
     const updatedData = { ...selectedProject, ...data };
     await editProject(selectedProject.id, updatedData);
     setIsModalOpen(false);
   };
 
-  useEffect(() => {}, [allProjects.length]);
+  useEffect(() => {
+    refreshProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -49,8 +53,8 @@ export default function ProjectTable() {
           <tr className="bg-gray-strong text-left text-white-smoke">
             <th className="p-3">Name</th>
             <th className="p-3">Country</th>
-            <th className="p-3">Goal</th>
-            <th className="p-3">Raised</th>
+            <th className="p-3 text-right">Goal</th>
+            <th className="p-3 text-right">Raised</th>
             <th className="p-3 text-right">Actions</th>
           </tr>
         </thead>
@@ -59,9 +63,15 @@ export default function ProjectTable() {
             <tr key={project.id} className="border-b hover:bg-gray-soft">
               <td className="p-3">{project.title}</td>
               <td className="p-3">{project.country}</td>
-              <td className="p-3">${project.goalAmount.toLocaleString()}</td>
-              <td className="p-3">
-                ${project.currentAmount?.toLocaleString() ?? "-"}
+              <td className="p-3 text-right">
+                ${project.goalAmount.toLocaleString()}
+              </td>
+              <td className="p-3 text-right">
+                $
+                {project.currentAmount?.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </td>
               <td className="p-3 text-right flex justify-end gap-3">
                 <EditButton onEdit={() => handleEdit(project)} />

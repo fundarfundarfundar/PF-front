@@ -70,3 +70,13 @@ export const P2 = ({ children, className }: TypographyProps) => {
     </p>
   );
 };
+
+export const P3 = ({ children, className }: TypographyProps) => {
+  return (
+    <p
+      className={`bg-linear-to-r from-gray-medium to-gray-soft bg-clip-text text-transparent drop-shadow-lg text-[14px] lg:text-[16px] leading-relaxed ${className}`}
+    >
+      {children}
+    </p>
+  );
+};

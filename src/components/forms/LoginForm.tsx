@@ -12,12 +12,15 @@ import { useFormik } from "formik";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function LoginForm() {
   const { setDataUser } = useAuth();
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik<ILoginFormValues>({
     initialValues: loginInitialValues,
@@ -26,7 +29,7 @@ export default function LoginForm() {
     onSubmit: async (values, { resetForm }) => {
       const response = await loginUser(values);
       if (!response.success) {
-        toast.error("Login failed");
+        toast.error(response.message || "Login failed");
         return;
       }
       setDataUser({
@@ -41,6 +44,10 @@ export default function LoginForm() {
 
   const handleGoogleLogin = () => {
     window.location.href = `${apiURL}/auth/google`;
+  };
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
   };
 
   return (
@@ -69,16 +76,25 @@ export default function LoginForm() {
         <label htmlFor="password" className="form-label">
           PASSWORD
         </label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          placeholder="********"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          className="form-input"
-        />
-        {formik.errors.password ? (
+        <div className="relative">
+          <input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="********"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            className="form-input w-full"
+          />
+          <button
+            type="button"
+            onClick={togglePassword}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-strong hover:text-black "
+          >
+            {showPassword ? <FaEye /> : <FaEyeSlash />}
+          </button>
+        </div>
+        {formik.touched.password && formik.errors.password ? (
           <p id="password-errors" className="text-red-500">
             {formik.errors.password}
           </p>
@@ -97,28 +113,24 @@ export default function LoginForm() {
           <span className="px-2 text-gray-500 text-sm">or sign in below</span>
           <hr className="grow border-gray-300" />
         </div>
-      </form>
 
-      <button
-        type="button"
-        onClick={handleGoogleLogin}
-        className="btn-form-secondary"
-      >
-        SIGN IN WITH GMAIL
-      </button>
-
-      <div className="text-center mt-6 text-sm">
-        <Link href="#" className="text-blue-strong hover:underline">
-          Forgot password?
-        </Link>{" "}
-        |{" "}
-        <Link
-          href={PATHROUTES.REGISTER}
-          className="text-blue-strong hover:underline"
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="btn-form-secondary"
         >
-          Create an account
-        </Link>
-      </div>
+          SIGN IN WITH GMAIL
+        </button>
+
+        <div className="text-center text-sm mt-2">
+          <Link
+            href={PATHROUTES.REGISTER}
+            className="text-blue-strong hover:underline"
+          >
+            Create an account
+          </Link>
+        </div>
+      </form>
     </>
   );
 }

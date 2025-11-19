@@ -83,27 +83,29 @@ export default function UserDetailModal({
               )}
 
               <div className="flex flex-col gap-2">
-                <p>
-                  <strong>Name</strong>
-                  <div>
+                <div>
+                  <p className="font-bold">Name</p>
+                  <p>
                     {user?.firstName} {user?.lastName}
-                  </div>
-                </p>
-                <p>
-                  <strong>Email</strong>
+                  </p>
+                </div>
+
+                <div>
+                  <p className="font-bold">Email</p>
                   <p>{user?.email}</p>
-                </p>
+                </div>
 
                 {user?.country ? (
-                  <p>
-                    <strong>Country</strong>
+                  <div>
+                    <p className="font-bold">Country</p>
                     <p>{user?.country} </p>
-                  </p>
+                  </div>
                 ) : null}
-                <p>
-                  <strong>Role</strong>
+
+                <div>
+                  <span className="font-bold">Role</span>
                   <p>{user?.role}</p>
-                </p>
+                </div>
               </div>
             </div>
 

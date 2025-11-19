@@ -28,3 +28,32 @@ export const createPaymentSession = async (
     throw err;
   }
 };
+
+export const createDonation = async (
+  amount: number,
+  userId: string,
+  projectId: string
+) => {
+  try {
+    const res = await fetch(`${apiURL}/donations`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount,
+        date: new Date().toISOString().split("T")[0],
+        paymentMethod: "stripe",
+        userId,
+        projectId,
+      }),
+    });
+
+    if (!res.ok) throw new Error("Error creating donation");
+
+    return await res.json();
+  } catch (err) {
+    console.error("Donation error", err);
+    throw err;
+  }
+};

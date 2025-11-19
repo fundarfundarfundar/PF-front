@@ -52,17 +52,19 @@ export default function ProjectsPage() {
 
   return (
     <section>
-      <div className="relative bg-gray-soft px-7 lg:pt-20 lg:px-30 lg:pb-10">
-        <div className="absolute inset-0 bg-black/10 z-0"></div>
+      <div className="relative  lg:pb-10 bg-white-smoke bg-opacity-40 backdrop-blur-2xl pt-7">
+        <div className="absolute inset-0 bg-black/30 z-0"></div>
         <div className="relative z-10">
-          <CountryFilter
-            countries={countries}
-            selectedCountry={country}
-            onChange={(newCountry) => {
-              setCountry(newCountry);
-              setCurrentPage(1);
-            }}
-          />
+          <div className="lg:px-12 pb-7">
+            <CountryFilter
+              countries={countries}
+              selectedCountry={country}
+              onChange={(newCountry) => {
+                setCountry(newCountry);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
 
           {currentProjects.length > 0 ? (
             currentProjects.map((projectItem) => (

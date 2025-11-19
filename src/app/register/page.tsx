@@ -7,7 +7,7 @@ import { useUsers } from "@/context/UserContext";
 export default function Register() {
   const { totalUsers } = useUsers();
   return (
-    <section className="relative flex justify-center items-center min-h-screen bg-[url('/images/shared/collageRegister2.jpg')] bg-cover bg-center">
+    <section className="relative flex justify-center items-center min-h-screen bg-[url('/images/shared/collageRegister.webp')] bg-cover bg-center">
       <div className="absolute inset-0 bg-black/40 z-0"></div>
 
       <div className="relative z-10 bg-white-smoke shadow-md rounded-md p-8 flex flex-col gap-3">

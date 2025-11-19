@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (typeof window !== "undefined" && window.localStorage) {
       localStorage.removeItem("userSession");
       localStorage.removeItem("token");
-      document.cookie = "user=; path=/; max-age=0";
+      document.cookie = "token=; path=/; max-age=0";
     }
     router.push(PATHROUTES.HOME);
   };
@@ -74,17 +74,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       user: {
         ...dataUser.user,
         ...updatedData,
-        imageUrl: updatedData.imageUrl ?? dataUser.user.imageUrl, // sobrescribe solo lo que cambió
+        imageUrl: updatedData.imageUrl ?? dataUser.user.imageUrl,
       },
     };
-
     setDataUser(newUserSession);
     localStorage.setItem("userSession", JSON.stringify(newUserSession));
   };
 
   return (
     <AuthContext.Provider
-      value={{ dataUser, setDataUser, logout, isLoading, updateUserProfile }}
+      value={{
+        dataUser,
+        setDataUser,
+        logout,
+        isLoading,
+        updateUserProfile,
+      }}
     >
       {children}
     </AuthContext.Provider>

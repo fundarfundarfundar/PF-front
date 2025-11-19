@@ -18,7 +18,7 @@ export default function Pagination({
         disabled={currentPage === 1}
         className="px-3 py-1 rounded bg-gray-soft hover:bg-gray-300 disabled:opacity-50 cursor-pointer"
       >
-        ← Anterior
+        ← Prev
       </button>
 
       {Array.from({ length: totalPages }, (_, i) => (
@@ -40,7 +40,7 @@ export default function Pagination({
         disabled={currentPage === totalPages}
         className="px-3 py-1 rounded bg-gray-soft hover:bg-gray-300 disabled:opacity-50 cursor-pointer"
       >
-        Siguiente →
+        Next →
       </button>
     </div>
   );

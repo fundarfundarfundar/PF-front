@@ -20,7 +20,6 @@ export const loginUser = async (userData: ILoginFormValues) => {
     }
     const data = await response.json();
 
-    // Crear cookie para el middleware
     document.cookie = `token=${data.result.access_token}; Path=/; Max-Age=86400; SameSite=Lax`;
 
     return {
@@ -40,8 +39,6 @@ export const loginUser = async (userData: ILoginFormValues) => {
 
 export const registerUser = async (userData: IRegisterFormValues) => {
   try {
-    console.log("🌍 Enviando registro a:", `${apiURL}/auth/register`);
-    console.log("📦 Datos:", userData);
     const response = await fetch(`${apiURL}/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -1,23 +1,38 @@
 "use client";
 
 import Image from "next/image";
-import BackButton from "@/components/common/BackButton.";
 import PaymentModal from "@/components/projects/PaymentModal";
+import BackButton from "@/components/common/BackButton";
 import { notFound, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IProject } from "@/interfaces/IProject";
 import { H2, P1, TitleProject } from "@/components/common/Typography";
 import { GoArrowRight } from "react-icons/go";
 import { getProjectById } from "@/services/project.services";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { PATHROUTES } from "@/helpers/NavItems";
 
 export default function ProjectDetailPage() {
   const params = useParams();
   const projectId = params.idProject as string;
+  const router = useRouter();
+  const { dataUser } = useAuth();
 
   const [projectData, setProjectData] = useState<IProject | null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
     null
   );
+
+  const handleDonate = () => {
+    if (!dataUser) {
+      toast.error("You must be logged in to support a project");
+      router.push(PATHROUTES.LOGIN);
+      return;
+    }
+    setSelectedProjectId(projectId);
+  };
 
   useEffect(() => {
     const fetchProjectById = async () => {
@@ -64,7 +79,7 @@ export default function ProjectDetailPage() {
 
             <button
               type="button"
-              onClick={() => setSelectedProjectId(projectId)}
+              onClick={handleDonate}
               className="btn-primary mt-7 self-start"
             >
               DONATE
@@ -72,7 +87,7 @@ export default function ProjectDetailPage() {
           </div>
         </div>
 
-        <div className="lg:px-30 flex pt-15 pb-30 gap-30">
+        <div className="lg:px-30 flex pt-15 pb-30 gap-30 2xl:gap-80">
           <div className=" flex flex-col gap-7">
             <H2>DESCRIPTION</H2>
             <P1 className="w-[600px]">{projectData.description}</P1>
@@ -83,14 +98,23 @@ export default function ProjectDetailPage() {
               <GoArrowRight className="text-blue-strong text-3xl" />
               <P1>
                 <span className="font-semibold">Goal:</span> $
-                {projectData.goalAmount.toLocaleString()}
+                {projectData.goalAmount.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </P1>
             </div>
             <div className="flex gap-2 items-center">
               <GoArrowRight className="text-blue-strong font-extrabold text-3xl" />
               <P1>
                 <span className="font-semibold">Raised:</span> $
-                {/* {projectData.currentAmount.toLocaleString()} */}
+                {Number(projectData?.currentAmount ?? 0).toLocaleString(
+                  "en-US",
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}
               </P1>
             </div>
             <div className="flex gap-2 items-center">

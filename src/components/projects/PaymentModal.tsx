@@ -30,19 +30,21 @@ export default function PaymentModal({
     }
 
     try {
-      console.log(
-        "lo q se envia al servide",
-        projectId,
-        dataUser?.user.id,
-        amount
+      localStorage.setItem(
+        "pendingDonation",
+        JSON.stringify({
+          amount,
+          userId: dataUser?.user.id,
+          projectId,
+        })
       );
-      const res = await createPaymentSession(
+
+      const sessionUrl = await createPaymentSession(
         projectId,
         dataUser?.user.id as string,
         amount
       );
-      window.location.href = res;
-      console.log("datos recibidos del backend", res);
+      window.location.href = sessionUrl;
 
       toast.success(`Processing donation of $${amount} USD`);
       onClose();
