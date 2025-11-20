@@ -50,10 +50,10 @@ export default function ProfilePage() {
                   <p>{dataUser?.user?.country}</p>
                 </div>
               ) : null}
-              <div className="py-3 flex justify-between">
+              {/* <div className="py-3 flex justify-between">
                 <p>Role</p>
                 <p className="capitalize">{dataUser?.user?.role}</p>
-              </div>
+              </div> */}
               <div className="py-3 flex justify-between">
                 <p>User</p>
                 <p>@{dataUser?.user?.email?.split("@")[0] || "sin_usuario"}</p>
