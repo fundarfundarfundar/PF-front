@@ -3,6 +3,7 @@
 import Image from "next/image";
 import PaymentModal from "@/components/projects/PaymentModal";
 import BackButton from "@/components/common/BackButton";
+import Loading from "@/components/common/Loading";
 import { notFound, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IProject } from "@/interfaces/IProject";
@@ -10,10 +11,8 @@ import { H2, P1, TitleProject } from "@/components/common/Typography";
 import { GoArrowRight } from "react-icons/go";
 import { getProjectById } from "@/services/project.services";
 import { useAuth } from "@/context/AuthContext";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/NavItems";
-import Loading from "@/components/common/Loading";
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -29,7 +28,6 @@ export default function ProjectDetailPage() {
 
   const handleDonate = () => {
     if (!dataUser) {
-      toast.error("You must be logged in to support a project");
       router.push(PATHROUTES.LOGIN);
       return;
     }
