@@ -36,11 +36,11 @@ export default function DonationsPage() {
       {!loading && donations.length === 0 && (
         <p className="text-gray-500">You haven’t made any donations yet.</p>
       )}
-      <ul className="grid grid-cols-2 gap-5 items-stretch">
+      <div className="grid grid-cols-3 gap-5 items-stretch">
         {donations.map((donation) => (
           <UserDonationCard key={donation.id} donation={donation} />
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
