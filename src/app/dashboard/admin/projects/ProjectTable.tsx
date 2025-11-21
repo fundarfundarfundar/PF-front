@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { IProjectFormValues } from "@/validators/addProjectSchema";
 import { useAuth } from "@/context/AuthContext";
+import { confirmAction } from "@/utils/confirmAction";
 
 export default function ProjectTable() {
   const { allProjects, editProject, refreshProjects } = useProjects();
@@ -15,18 +16,14 @@ export default function ProjectTable() {
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
   const { dataUser } = useAuth();
 
-  const token = dataUser?.token;
+  const token = dataUser?.token ?? "";
 
   const handleDelete = async (idProject: string) => {
-    const confirmDelete = confirm(
+    const confirmDelete = await confirmAction(
       "Are you sure you want to delete this project?"
     );
     if (!confirmDelete) return;
     try {
-      if (!token) {
-        toast.error("You must be logged in");
-        return;
-      }
       await deleteProject(idProject, token);
       toast.success("Project deleted successfully");
       refreshProjects();
