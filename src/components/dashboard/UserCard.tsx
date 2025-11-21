@@ -1,10 +1,12 @@
 import Image from "next/image";
+import { Edit3 } from "lucide-react";
 import { IUser } from "@/interfaces/IUser";
 import { FaUser } from "react-icons/fa6";
 import { updateUserRole } from "@/services/user.services";
 import { toast } from "sonner";
 import { useUsers } from "@/context/UserContext";
 import { useAuth } from "@/context/AuthContext";
+import { confirmAction } from "@/utils/confirmAction";
 
 interface UserCardProps {
   user: IUser;
@@ -21,10 +23,10 @@ export default function UserCard({ user, onClick }: UserCardProps) {
     currentRole: "admin" | "user"
   ) => {
     const newRole = currentRole === "admin" ? "user" : "admin";
-    const confirm = window.confirm(
-      "Are you sure you want to change this role user?"
+    const confirmDelete = await confirmAction(
+      "Are you sure you want to change this role?"
     );
-    if (!confirm) return;
+    if (!confirmDelete) return;
 
     try {
       await updateUserRole(token, userId, newRole);
@@ -71,13 +73,14 @@ export default function UserCard({ user, onClick }: UserCardProps) {
           onClick={() =>
             handleToggleRole(user.id, user.role as "admin" | "user")
           }
-          className="cursor-pointer"
+          className="cursor-pointer flex gap-2"
         >
           {user.role === "admin" ? (
             <p className="text-sm font-semibold text-red-400">{user.role}</p>
           ) : (
             <p className="text-sm font-semibold text-green-600">{user.role}</p>
           )}
+          <Edit3 size={14} className="text-black-strong" />
         </button>
       </div>
     </div>

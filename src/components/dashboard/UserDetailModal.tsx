@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { useUsers } from "@/context/UserContext";
 import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "@/context/AuthContext";
+import { confirmAction } from "@/utils/confirmAction";
 
 interface UserDetailModalProps {
   userId: string;
@@ -28,11 +29,10 @@ export default function UserDetailModal({
   const handleDelete = async () => {
     if (!userId) return;
 
-    const confirm = window.confirm(
+    const confirmDelete = await confirmAction(
       "Are you sure you want to delete this user?"
     );
-    if (!confirm) return;
-
+    if (!confirmDelete) return;
     try {
       await deleteUser(token, userId);
       toast.success("User deleted succesfully");

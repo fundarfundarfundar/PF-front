@@ -10,10 +10,16 @@ interface UserListProps {
 export default function UserList({ onSelect }: UserListProps) {
   const { allUsers } = useUsers();
 
+  const sortedUsers = [...allUsers].sort((a, b) => {
+    if (a.role === "admin" && b.role !== "admin") return -1;
+    if (a.role !== "admin" && b.role === "admin") return 1;
+    return 0;
+  });
+
   return (
     <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-3">
-      {allUsers.map((user, index) => (
-        <UserCard key={index} user={user} onClick={() => onSelect(user.id)} />
+      {sortedUsers.map((user) => (
+        <UserCard key={user.id} user={user} onClick={() => onSelect(user.id)} />
       ))}
     </div>
   );

@@ -3,8 +3,8 @@
 import UserDonationCard from "./UserDonationCard";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { getUserById } from "@/services/user.services";
 import { IUserDonation } from "@/interfaces/IUser";
+import { getDonationById } from "@/services/donation.services";
 
 export default function DonationsPage() {
   const [donations, setDonations] = useState<IUserDonation[]>([]);
@@ -17,8 +17,9 @@ export default function DonationsPage() {
       if (!dataUser?.user?.id) return;
 
       try {
-        const userDonations = await getUserById(token, dataUser.user.id);
-        setDonations(userDonations.donations || []);
+        const userDonations = await getDonationById(token, dataUser.user.id);
+        console.log("userDonation", userDonations);
+        setDonations(userDonations);
       } catch (err) {
         console.error("Error fetching donations:", err);
       } finally {
