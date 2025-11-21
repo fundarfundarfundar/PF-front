@@ -1,3 +1,5 @@
+import { IProject } from "./IProject";
+
 export interface IUser {
   id: string;
   firstName: string;
@@ -18,4 +20,5 @@ export interface IUserDonation {
   amount: number;
   date: string;
   paymentMethod: string;
+  project: IProject;
 }
