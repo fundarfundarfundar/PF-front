@@ -3,27 +3,6 @@ import { IRegisterFormValues } from "@/validators/registerSchema";
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
-// export const loginUser = async (userData: ILoginFormValues) => {
-//   try {
-//     const response = await fetch(`${apiURL}/auth/signin`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(userData),
-//     });
-
-//     if (response.ok) {
-//       return response.json();
-//     } else {
-//       throw new Error("Login Fallido");
-//     }
-//   } catch (error) {
-//     console.error("API error", error);
-//     return {
-//       success: false,
-//       message: "Unexpected error. Please try again later.",
-//     };
-//   }
-// };
 export const loginUser = async (userData: ILoginFormValues) => {
   try {
     const response = await fetch(`${apiURL}/auth/signin`, {
@@ -32,24 +11,17 @@ export const loginUser = async (userData: ILoginFormValues) => {
       body: JSON.stringify(userData),
     });
 
-    // if (!response.ok) {
-    //   const errorData = await response.json();
-    //   return {
-    //     success: false,
-    //     message: errorData.message || "Invalid credentials",
-    //   };
-    // }
-
-    const data = await response.json();
-
-    if (data.result === "Credenciales incorrectas") {
+    if (!response.ok) {
+      const errorData = await response.json();
       return {
         success: false,
-        message: data.result || "Invalid credentials",
+        message: errorData.message || "Invalid credentials",
       };
     }
+    const data = await response.json();
 
-    // const data = await response.json();
+    document.cookie = `token=${data.result.access_token}; Path=/; Max-Age=86400; SameSite=Lax`;
+
     return {
       success: true,
       message: data.message,

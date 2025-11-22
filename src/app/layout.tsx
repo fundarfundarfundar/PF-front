@@ -1,10 +1,13 @@
+import Navbar from "@/components/common/Navbar";
+import Footer from "@/components/common/Footer";
+import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins, Merriweather } from "next/font/google";
 import { Toaster } from "sonner";
-import "./globals.css";
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
 import { AuthProvider } from "@/context/AuthContext";
+import { ProjectsProvider } from "@/context/ProjetsContext";
+import { UserProvider } from "@/context/UserContext";
+import Script from "next/script";
 
 const proximaNova = Poppins({
   variable: "--font-proxima",
@@ -36,12 +39,24 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen">
         <Toaster position="bottom-right" richColors />
         <AuthProvider>
-          <>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </>
+          <UserProvider>
+            <ProjectsProvider>
+              <>
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </>
+            </ProjectsProvider>
+          </UserProvider>
         </AuthProvider>
+        <Script
+          src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://files.bpcontent.cloud/2025/11/15/12/20251115122210-QHPGSF6Q.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
