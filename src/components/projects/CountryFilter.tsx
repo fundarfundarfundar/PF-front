@@ -12,7 +12,7 @@ export default function CountryFilter({
   onChange,
 }: CountryFilterProps) {
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-5 px-5 lg:px-0">
       <P1>Filter by country:</P1>
       <select
         id="country"
