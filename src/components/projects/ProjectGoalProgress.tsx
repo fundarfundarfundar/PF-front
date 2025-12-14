@@ -10,8 +10,8 @@ export default function ProjectGoalProgress({
   const progress = Math.min((raised / goal) * 100, 100);
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-white-smoke rounded-xl shadow-md text-center space-y-4">
-      <div className="text-3xl sm:text-4xl font-bold text-blue-strong">
+    <div className="w-full max-w-md mx-auto p-3 lg:p-6 bg-white-smoke rounded-xl shadow-md text-center space-y-4">
+      <div className="text-[25px] sm:text-4xl font-bold text-blue-strong">
         $
         {goal.toLocaleString("en-US", {
           minimumFractionDigits: 2,

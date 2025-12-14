@@ -18,7 +18,7 @@ export default function CountryFilter({
         id="country"
         value={selectedCountry}
         onChange={(e) => onChange(e.target.value)}
-        className="border rounded px-3 py-2 bg-white text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-bluesky-strong cursor-pointer"
+        className="border rounded px-3 py-1 lg:py-2 bg-white-smoke text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-bluesky-strong cursor-pointer text-[14px] lg:text-[16px]"
       >
         <option value="">🌍 All countries</option>
         {countries.map((country) => (
